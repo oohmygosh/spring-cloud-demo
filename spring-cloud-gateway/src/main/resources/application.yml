@@ -12,17 +12,15 @@ spring:
         watch:
           enabled: true
         watch-delay: 1000
-        namespace: f9ae50e3-892b-47e8-9775-73bda8c3fd0b
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
-        namespace: f9ae50e3-892b-47e8-9775-73bda8c3fd0b
 
     gateway:
       routes:
         - id: res
           uri: lb://spring-cloud-oauth-resource
           predicates:
-            - Path=/res/**
+            - Path=/**
       discovery:
         locator:
           enabled: true
