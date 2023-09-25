@@ -1,4 +1,4 @@
-package com.vipicu.demo.utils;
+package com.vipicu.demo.oauth.auth.utils;
 
 /**
  * OAuth2 异常信息

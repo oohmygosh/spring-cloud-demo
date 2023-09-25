@@ -1,7 +1,7 @@
-package com.vipicu.demo.security.resource.controller;
+package com.vipicu.demo.cloud.oauth.resource.controller;
 
-import com.vipicu.demo.db.entity.Authorities;
-import com.vipicu.demo.db.service.AuthoritiesService;
+import com.vipicu.demo.cloud.db.h2.entity.Authorities;
+import com.vipicu.demo.cloud.db.h2.service.AuthoritiesService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

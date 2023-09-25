@@ -1,4 +1,4 @@
-package com.vipicu.demo.security.resource;
+package com.vipicu.demo.cloud.oauth.resource;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.ComponentScans;
 @ComponentScans(value = {
     @ComponentScan("com.vipicu.demo.*")
 })
-@MapperScan("com.vipicu.demo.*.mapper")
+@MapperScan("com.vipicu.demo.cloud.db.*.mapper")
 public class OAuth2ResourceServer {
 
     public static void main(String[] args) {

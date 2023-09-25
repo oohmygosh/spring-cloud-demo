@@ -1,6 +1,6 @@
-package com.vipicu.demo.support.password;
+package com.vipicu.demo.oauth.auth.support.password;
 
-import com.vipicu.demo.support.base.OAuth2ResourceOwnerBaseAuthenticationToken;
+import com.vipicu.demo.oauth.auth.support.base.OAuth2ResourceOwnerBaseAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 

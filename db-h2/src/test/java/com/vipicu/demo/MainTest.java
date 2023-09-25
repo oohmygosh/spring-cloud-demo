@@ -1,12 +1,10 @@
-package com.vipicu.demo.coud.db;
+package com.vipicu.demo;
 
 
 import com.vipicu.demo.cloud.db.h2.service.UsersService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 
 /**
  * SpringBoot Start测试
@@ -15,11 +13,6 @@ import org.springframework.context.annotation.ComponentScans;
  * @since 1.0.0
  */
 @SpringBootTest
-@ComponentScans(
-        value = {
-                @ComponentScan("com.vipicu.*")
-        }
-)
 public class MainTest {
 
     @Autowired

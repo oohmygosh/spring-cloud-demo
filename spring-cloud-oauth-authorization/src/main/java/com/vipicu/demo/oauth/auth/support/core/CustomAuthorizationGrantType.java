@@ -1,4 +1,4 @@
-package com.vipicu.demo.support.core;
+package com.vipicu.demo.oauth.auth.support.core;
 
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 

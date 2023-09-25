@@ -1,6 +1,6 @@
-package com.vipicu.demo.support.base;
+package com.vipicu.demo.oauth.auth.support.base;
 
-import com.vipicu.demo.utils.OAuth2EndpointUtils;
+import com.vipicu.demo.oauth.auth.utils.OAuth2EndpointUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

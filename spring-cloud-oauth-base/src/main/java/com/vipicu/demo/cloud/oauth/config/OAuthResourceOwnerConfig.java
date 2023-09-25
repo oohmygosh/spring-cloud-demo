@@ -1,4 +1,4 @@
-package com.vipicu.demo.oauth.config;
+package com.vipicu.demo.cloud.oauth.config;
 
 
 import com.nimbusds.jose.JWSAlgorithm;
@@ -11,8 +11,7 @@ import com.nimbusds.jose.proc.JWSVerificationKeySelector;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
-import com.vipicu.demo.oauth.utils.JwtSecretUtils;
-import jakarta.servlet.http.HttpServletResponse;
+import com.vipicu.demo.cloud.oauth.utils.JwtSecretUtils;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -21,7 +20,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -101,6 +99,7 @@ public class OAuthResourceOwnerConfig {
         RSAPublicKey publicKey = JwtSecretUtils.readReaPublicKey(publicKeyPem.getContentAsByteArray());
         RSAKey rsaKey = new RSAKey.Builder(publicKey)
                 .keyID(JwtSecretUtils.KEY_ID)
+                .keyID("f2d4da56-849e-404b-993b-1d966db67237")
                 .build();
         JWKSet jwkSet = new JWKSet(rsaKey);
         return new ImmutableJWKSet<>(jwkSet);

@@ -5,7 +5,7 @@
 
 @NonNullApi //指示该包下，参数，方法返回值不能为null
 @NonNullFields // 指示该包下，变量不能为null
-package com.vipicu.demo.security.resource.config;
+package com.vipicu.demo.cloud.oauth.resource.config;
 
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;

@@ -1,13 +1,12 @@
-package com.vipicu.demo.impl;
+package com.vipicu.demo.oauth.auth.impl;
 
-import com.vipicu.demo.db.entity.Users;
-import com.vipicu.demo.db.service.UsersService;
-import com.vipicu.demo.entity.IUserDetails;
+import com.vipicu.demo.cloud.db.h2.entity.Users;
+import com.vipicu.demo.cloud.db.h2.service.UsersService;
+import com.vipicu.demo.oauth.auth.entity.IUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

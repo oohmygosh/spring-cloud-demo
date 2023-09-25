@@ -1,7 +1,7 @@
-package com.vipicu.demo.support.password;
+package com.vipicu.demo.oauth.auth.support.password;
 
-import com.vipicu.demo.support.base.OAuth2ResourceOwnerBaseAuthenticationProvider;
-import com.vipicu.demo.support.core.CustomAuthorizationGrantType;
+import com.vipicu.demo.oauth.auth.support.base.OAuth2ResourceOwnerBaseAuthenticationProvider;
+import com.vipicu.demo.oauth.auth.support.core.CustomAuthorizationGrantType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationManager;

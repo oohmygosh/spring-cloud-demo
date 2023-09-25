@@ -1,9 +1,9 @@
-package com.vipicu.demo.db.service.impl;
+package com.vipicu.demo.cloud.db.h2.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.vipicu.demo.db.entity.Users;
-import com.vipicu.demo.db.mapper.UsersMapper;
-import com.vipicu.demo.db.service.UsersService;
+import com.vipicu.demo.cloud.db.h2.entity.Users;
+import com.vipicu.demo.cloud.db.h2.mapper.UsersMapper;
+import com.vipicu.demo.cloud.db.h2.service.UsersService;
 import org.springframework.stereotype.Service;
 
 @Service

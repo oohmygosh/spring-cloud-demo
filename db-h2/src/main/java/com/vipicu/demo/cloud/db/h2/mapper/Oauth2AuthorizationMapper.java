@@ -1,7 +1,7 @@
-package com.vipicu.demo.db.mapper;
+package com.vipicu.demo.cloud.db.h2.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.vipicu.demo.db.entity.Oauth2Authorization;
+import com.vipicu.demo.cloud.db.h2.entity.Oauth2Authorization;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

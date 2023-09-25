@@ -1,7 +1,7 @@
-package com.vipicu.demo.db.service;
+package com.vipicu.demo.cloud.db.h2.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.vipicu.demo.db.entity.Oauth2Authorization;
+import com.vipicu.demo.cloud.db.h2.entity.Oauth2Authorization;
 
 /**
  * Oauth2授权服务

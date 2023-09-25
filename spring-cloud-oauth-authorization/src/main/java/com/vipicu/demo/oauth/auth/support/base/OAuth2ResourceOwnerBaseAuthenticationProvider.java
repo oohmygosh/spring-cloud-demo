@@ -1,6 +1,6 @@
-package com.vipicu.demo.support.base;
+package com.vipicu.demo.oauth.auth.support.base;
 
-import com.vipicu.demo.utils.OAuth2ErrorCodesExpand;
+import com.vipicu.demo.oauth.auth.utils.OAuth2ErrorCodesExpand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.*;

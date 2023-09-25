@@ -1,5 +1,6 @@
-package com.vipicu.demo.db.config;
+package com.vipicu.demo.cloud.db.h2.config;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
@@ -7,10 +8,7 @@ import org.springframework.boot.autoconfigure.sql.init.SqlDataSourceScriptDataba
 import org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.sql.init.DatabaseInitializationMode;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ConditionContext;
-import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.util.StringUtils;
@@ -25,6 +23,10 @@ import java.util.Collections;
  * @since 1.0.0
  */
 @Configuration
+@ComponentScans(value = {
+        @ComponentScan("com.vipicu.demo.*")
+})
+@MapperScan("com.vipicu.demo.cloud.db.*.mapper")
 @Conditional(DataSourceAutoConfiguration.DbIsMissing.class)
 public class DataSourceAutoConfiguration {
     /**

@@ -2,16 +2,16 @@ server:
   port: 8080
 spring:
   application:
-    name: oauth-authorization-server
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://nas.r:2345/oauth
-    password: postgres_password
-    username: postgres
+    name: @artifactId@
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://nas.r:2345/oauth
+#    password: postgres_password
+#    username: postgres
   cloud:
     nacos:
       discovery:
-        server-addr: ${NACOS_HOST:nas.r}:${NACOS_PORT:8848}
+        server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
         watch:
           enabled: true
         watch-delay: 1000
@@ -21,9 +21,4 @@ spring:
         namespace: f9ae50e3-892b-47e8-9775-73bda8c3fd0b
   config:
     import:
-      - optional:nacos:application-dev.yml
-# 日志
-logging:
-  config: classpath:log4j2-delayed.xml
-  level:
-    com.vipicu: debug
+      - optional:nacos:application-@profiles.active@.yml

@@ -1,4 +1,4 @@
-package com.vipicu.demo.support.handler;
+package com.vipicu.demo.oauth.auth.support.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

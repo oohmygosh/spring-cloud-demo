@@ -1,7 +1,7 @@
-package com.vipicu.demo.security.resource.controller;
+package com.vipicu.demo.cloud.oauth.resource.controller;
 
-import com.vipicu.demo.db.entity.Oauth2Authorization;
-import com.vipicu.demo.db.service.Oauth2AuthorizationService;
+import com.vipicu.demo.cloud.db.h2.entity.Oauth2Authorization;
+import com.vipicu.demo.cloud.db.h2.service.Oauth2AuthorizationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/authorization")
 public class AuthorizationController {
 
-    private final Oauth2AuthorizationService  authorizationService;
+    private final Oauth2AuthorizationService authorizationService;
 
     @GetMapping
     public List<Oauth2Authorization> fetchAuthorization() {

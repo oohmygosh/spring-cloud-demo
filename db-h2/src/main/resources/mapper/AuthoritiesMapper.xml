@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.vipicu.demo.db.mapper.AuthoritiesMapper">
-  <resultMap id="BaseResultMap" type="com.vipicu.demo.db.entity.Authorities">
+<mapper namespace="com.vipicu.demo.cloud.db.h2.mapper.AuthoritiesMapper">
+  <resultMap id="BaseResultMap" type="com.vipicu.demo.cloud.db.h2.entity.Authorities">
     <!--@mbg.generated-->
     <!--@Table PUBLIC.AUTHORITIES-->
     <result column="USERNAME" jdbcType="VARCHAR" property="username" />

@@ -1,7 +1,7 @@
-package com.vipicu.demo.db.service;
+package com.vipicu.demo.cloud.db.h2.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.vipicu.demo.db.entity.Authorities;
+import com.vipicu.demo.cloud.db.h2.entity.Authorities;
 
 /**
  * 政府服务

@@ -1,4 +1,4 @@
-package com.vipicu.demo.security.resource.entity;
+package com.vipicu.demo.cloud.oauth.resource.entity;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;

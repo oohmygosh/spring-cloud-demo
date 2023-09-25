@@ -1,4 +1,4 @@
-package com.vipicu.demo.utils;
+package com.vipicu.demo.oauth.auth.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;

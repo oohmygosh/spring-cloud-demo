@@ -1,6 +1,6 @@
-package com.vipicu.demo.security.resource.config;
+package com.vipicu.demo.cloud.oauth.resource.config;
 
-import com.vipicu.demo.security.resource.entity.ApiResult;
+import com.vipicu.demo.cloud.oauth.resource.entity.ApiResult;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

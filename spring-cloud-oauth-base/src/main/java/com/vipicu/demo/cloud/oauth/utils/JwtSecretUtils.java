@@ -1,6 +1,5 @@
-package com.vipicu.demo.oauth.utils;
+package com.vipicu.demo.cloud.oauth.utils;
 
-import lombok.Getter;
 import lombok.SneakyThrows;
 
 import java.io.FileOutputStream;

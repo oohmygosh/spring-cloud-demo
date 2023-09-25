@@ -1,4 +1,4 @@
-package com.vipicu.demo.db.entity;
+package com.vipicu.demo.cloud.db.h2.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

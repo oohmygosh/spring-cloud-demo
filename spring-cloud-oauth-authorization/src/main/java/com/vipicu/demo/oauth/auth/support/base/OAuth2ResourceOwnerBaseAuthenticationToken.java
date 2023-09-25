@@ -1,4 +1,4 @@
-package com.vipicu.demo.support.base;
+package com.vipicu.demo.oauth.auth.support.base;
 
 import lombok.Getter;
 import org.springframework.lang.Nullable;

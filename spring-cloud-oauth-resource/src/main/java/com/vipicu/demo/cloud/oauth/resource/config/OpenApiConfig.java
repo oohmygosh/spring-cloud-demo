@@ -1,4 +1,4 @@
-package com.vipicu.demo.security.resource.config;
+package com.vipicu.demo.cloud.oauth.resource.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

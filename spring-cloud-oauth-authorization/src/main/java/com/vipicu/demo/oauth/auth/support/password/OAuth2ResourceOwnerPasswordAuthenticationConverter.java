@@ -1,8 +1,8 @@
-package com.vipicu.demo.support.password;
+package com.vipicu.demo.oauth.auth.support.password;
 
-import com.vipicu.demo.support.base.CustomOAuth2AuthenticationConverter;
-import com.vipicu.demo.support.core.CustomAuthorizationGrantType;
-import com.vipicu.demo.utils.OAuth2EndpointUtils;
+import com.vipicu.demo.oauth.auth.support.base.CustomOAuth2AuthenticationConverter;
+import com.vipicu.demo.oauth.auth.support.core.CustomAuthorizationGrantType;
+import com.vipicu.demo.oauth.auth.utils.OAuth2EndpointUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;

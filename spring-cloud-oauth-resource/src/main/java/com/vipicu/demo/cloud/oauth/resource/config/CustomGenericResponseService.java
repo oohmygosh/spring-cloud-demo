@@ -1,7 +1,7 @@
-package com.vipicu.demo.security.resource.config;
+package com.vipicu.demo.cloud.oauth.resource.config;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.vipicu.demo.security.resource.entity.ApiResult;
+import com.vipicu.demo.cloud.oauth.resource.entity.ApiResult;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Content;
 import lombok.extern.slf4j.Slf4j;

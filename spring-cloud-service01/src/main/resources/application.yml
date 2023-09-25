@@ -1,8 +1,8 @@
 server:
-  port: 9999
+  port: 8099
 spring:
   application:
-    name: spring-cloud-gateway
+    name: @artifactId@
   cloud:
     nacos:
       discovery:
@@ -14,19 +14,7 @@ spring:
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         namespace: f9ae50e3-892b-47e8-9775-73bda8c3fd0b
-
-    gateway:
-      routes:
-        - id: resource
-          uri: lb://resource
-          predicates:
-            - Path=/res/**
-      discovery:
-        locator:
-          enabled: true
-
-
   config:
     import:
-      - optional:nacos:application-dev.yml
+      - optional:nacos:application-@profiles.active@.yml
 

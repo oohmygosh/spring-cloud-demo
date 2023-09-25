@@ -1,11 +1,18 @@
 package com.vipicu.demo.oauth.auth;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 
 @SpringBootApplication
-public class OAuth2AuthorizationApplication {
+@ComponentScans(value = {
+        @ComponentScan("com.vipicu.demo.*")
+})
+@MapperScan("com.vipicu.demo.cloud.db.*.mapper")
+public class OAuth2AuthorizationServer {
     public static void main(String[] args) {
-        SpringApplication.run(OAuth2AuthorizationApplication.class, args);
+        SpringApplication.run(OAuth2AuthorizationServer.class, args);
     }
 }

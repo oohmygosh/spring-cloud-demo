@@ -1,8 +1,8 @@
-package com.vipicu.demo.security.resource.controller;
+package com.vipicu.demo.cloud.oauth.resource.controller;
 
-import com.vipicu.demo.db.entity.Users;
-import com.vipicu.demo.db.service.UsersService;
-import com.vipicu.demo.security.resource.entity.ApiResult;
+import com.vipicu.demo.cloud.db.h2.entity.Users;
+import com.vipicu.demo.cloud.db.h2.service.UsersService;
+import com.vipicu.demo.cloud.oauth.resource.entity.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

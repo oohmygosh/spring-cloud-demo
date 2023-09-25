@@ -1,4 +1,4 @@
-package com.vipicu.demo.db.entity;
+package com.vipicu.demo.cloud.db.h2.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
