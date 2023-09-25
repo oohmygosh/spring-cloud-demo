@@ -5,6 +5,8 @@ spring:
     name: @artifactId@
   cloud:
     nacos:
+      username: @nacos.username@
+      password: @nacos.password@
       discovery:
         server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
         watch:
@@ -17,10 +19,10 @@ spring:
 
     gateway:
       routes:
-        - id: spring-cloud-service01
-          uri: lb://spring-cloud-service01
+        - id: res
+          uri: lb://spring-cloud-oauth-resource
           predicates:
-            - Path=/**
+            - Path=/res/**
       discovery:
         locator:
           enabled: true
