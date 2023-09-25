@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vipicu.demo.db.mapper.Oauth2AuthorizationMapper">
+  <resultMap id="BaseResultMap" type="com.vipicu.demo.db.entity.Oauth2Authorization">
+    <!--@mbg.generated-->
+    <!--@Table PUBLIC.OAUTH2_AUTHORIZATION-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="REGISTERED_CLIENT_ID" jdbcType="VARCHAR" property="registeredClientId" />
+    <result column="PRINCIPAL_NAME" jdbcType="VARCHAR" property="principalName" />
+    <result column="AUTHORIZATION_GRANT_TYPE" jdbcType="VARCHAR" property="authorizationGrantType" />
+    <result column="AUTHORIZED_SCOPES" jdbcType="VARCHAR" property="authorizedScopes" />
+    <result column="ATTRIBUTES" jdbcType="VARBINARY" property="attributes" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="AUTHORIZATION_CODE_VALUE" jdbcType="VARBINARY" property="authorizationCodeValue" />
+    <result column="AUTHORIZATION_CODE_ISSUED_AT" jdbcType="TIMESTAMP" property="authorizationCodeIssuedAt" />
+    <result column="AUTHORIZATION_CODE_EXPIRES_AT" jdbcType="TIMESTAMP" property="authorizationCodeExpiresAt" />
+    <result column="AUTHORIZATION_CODE_METADATA" jdbcType="VARBINARY" property="authorizationCodeMetadata" />
+    <result column="ACCESS_TOKEN_VALUE" jdbcType="VARBINARY" property="accessTokenValue" />
+    <result column="ACCESS_TOKEN_ISSUED_AT" jdbcType="TIMESTAMP" property="accessTokenIssuedAt" />
+    <result column="ACCESS_TOKEN_EXPIRES_AT" jdbcType="TIMESTAMP" property="accessTokenExpiresAt" />
+    <result column="ACCESS_TOKEN_METADATA" jdbcType="VARBINARY" property="accessTokenMetadata" />
+    <result column="ACCESS_TOKEN_TYPE" jdbcType="VARCHAR" property="accessTokenType" />
+    <result column="ACCESS_TOKEN_SCOPES" jdbcType="VARCHAR" property="accessTokenScopes" />
+    <result column="OIDC_ID_TOKEN_VALUE" jdbcType="VARBINARY" property="oidcIdTokenValue" />
+    <result column="OIDC_ID_TOKEN_ISSUED_AT" jdbcType="TIMESTAMP" property="oidcIdTokenIssuedAt" />
+    <result column="OIDC_ID_TOKEN_EXPIRES_AT" jdbcType="TIMESTAMP" property="oidcIdTokenExpiresAt" />
+    <result column="OIDC_ID_TOKEN_METADATA" jdbcType="VARBINARY" property="oidcIdTokenMetadata" />
+    <result column="REFRESH_TOKEN_VALUE" jdbcType="VARBINARY" property="refreshTokenValue" />
+    <result column="REFRESH_TOKEN_ISSUED_AT" jdbcType="TIMESTAMP" property="refreshTokenIssuedAt" />
+    <result column="REFRESH_TOKEN_EXPIRES_AT" jdbcType="TIMESTAMP" property="refreshTokenExpiresAt" />
+    <result column="REFRESH_TOKEN_METADATA" jdbcType="VARBINARY" property="refreshTokenMetadata" />
+    <result column="USER_CODE_VALUE" jdbcType="VARBINARY" property="userCodeValue" />
+    <result column="USER_CODE_ISSUED_AT" jdbcType="TIMESTAMP" property="userCodeIssuedAt" />
+    <result column="USER_CODE_EXPIRES_AT" jdbcType="TIMESTAMP" property="userCodeExpiresAt" />
+    <result column="USER_CODE_METADATA" jdbcType="VARBINARY" property="userCodeMetadata" />
+    <result column="DEVICE_CODE_VALUE" jdbcType="VARBINARY" property="deviceCodeValue" />
+    <result column="DEVICE_CODE_ISSUED_AT" jdbcType="TIMESTAMP" property="deviceCodeIssuedAt" />
+    <result column="DEVICE_CODE_EXPIRES_AT" jdbcType="TIMESTAMP" property="deviceCodeExpiresAt" />
+    <result column="DEVICE_CODE_METADATA" jdbcType="VARBINARY" property="deviceCodeMetadata" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, REGISTERED_CLIENT_ID, PRINCIPAL_NAME, AUTHORIZATION_GRANT_TYPE, AUTHORIZED_SCOPES, 
+    "ATTRIBUTES", "STATE", AUTHORIZATION_CODE_VALUE, AUTHORIZATION_CODE_ISSUED_AT, AUTHORIZATION_CODE_EXPIRES_AT, 
+    AUTHORIZATION_CODE_METADATA, ACCESS_TOKEN_VALUE, ACCESS_TOKEN_ISSUED_AT, ACCESS_TOKEN_EXPIRES_AT, 
+    ACCESS_TOKEN_METADATA, ACCESS_TOKEN_TYPE, ACCESS_TOKEN_SCOPES, OIDC_ID_TOKEN_VALUE, 
+    OIDC_ID_TOKEN_ISSUED_AT, OIDC_ID_TOKEN_EXPIRES_AT, OIDC_ID_TOKEN_METADATA, REFRESH_TOKEN_VALUE, 
+    REFRESH_TOKEN_ISSUED_AT, REFRESH_TOKEN_EXPIRES_AT, REFRESH_TOKEN_METADATA, USER_CODE_VALUE, 
+    USER_CODE_ISSUED_AT, USER_CODE_EXPIRES_AT, USER_CODE_METADATA, DEVICE_CODE_VALUE, 
+    DEVICE_CODE_ISSUED_AT, DEVICE_CODE_EXPIRES_AT, DEVICE_CODE_METADATA
+  </sql>
+</mapper>

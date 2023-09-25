@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vipicu.demo.db.mapper.Oauth2RegisteredClientMapper">
+  <resultMap id="BaseResultMap" type="com.vipicu.demo.db.entity.Oauth2RegisteredClient">
+    <!--@mbg.generated-->
+    <!--@Table PUBLIC.OAUTH2_REGISTERED_CLIENT-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CLIENT_ID" jdbcType="VARCHAR" property="clientId" />
+    <result column="CLIENT_ID_ISSUED_AT" jdbcType="TIMESTAMP" property="clientIdIssuedAt" />
+    <result column="CLIENT_SECRET" jdbcType="VARCHAR" property="clientSecret" />
+    <result column="CLIENT_SECRET_EXPIRES_AT" jdbcType="TIMESTAMP" property="clientSecretExpiresAt" />
+    <result column="CLIENT_NAME" jdbcType="VARCHAR" property="clientName" />
+    <result column="CLIENT_AUTHENTICATION_METHODS" jdbcType="VARCHAR" property="clientAuthenticationMethods" />
+    <result column="AUTHORIZATION_GRANT_TYPES" jdbcType="VARCHAR" property="authorizationGrantTypes" />
+    <result column="REDIRECT_URIS" jdbcType="VARCHAR" property="redirectUris" />
+    <result column="POST_LOGOUT_REDIRECT_URIS" jdbcType="VARCHAR" property="postLogoutRedirectUris" />
+    <result column="SCOPES" jdbcType="VARCHAR" property="scopes" />
+    <result column="CLIENT_SETTINGS" jdbcType="VARCHAR" property="clientSettings" />
+    <result column="TOKEN_SETTINGS" jdbcType="VARCHAR" property="tokenSettings" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CLIENT_ID, CLIENT_ID_ISSUED_AT, CLIENT_SECRET, CLIENT_SECRET_EXPIRES_AT, CLIENT_NAME, 
+    CLIENT_AUTHENTICATION_METHODS, AUTHORIZATION_GRANT_TYPES, REDIRECT_URIS, POST_LOGOUT_REDIRECT_URIS, 
+    SCOPES, CLIENT_SETTINGS, TOKEN_SETTINGS
+  </sql>
+</mapper>

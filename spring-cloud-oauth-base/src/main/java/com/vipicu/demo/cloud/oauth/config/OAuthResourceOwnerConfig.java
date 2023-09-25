@@ -1,0 +1,124 @@
+package com.vipicu.demo.oauth.config;
+
+
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.JWSKeySelector;
+import com.nimbusds.jose.proc.JWSVerificationKeySelector;
+import com.nimbusds.jose.proc.SecurityContext;
+import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
+import com.nimbusds.jwt.proc.DefaultJWTProcessor;
+import com.vipicu.demo.oauth.utils.JwtSecretUtils;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
+import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
+import org.springframework.security.web.SecurityFilterChain;
+
+import java.security.interfaces.RSAPublicKey;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Oauth资源所有者配置
+ *
+ * @author Administrator
+ * @since 1.0.0
+ */
+@Configuration
+@EnableWebSecurity
+public class OAuthResourceOwnerConfig {
+
+    /**
+     * 公钥
+     */
+    @Value("classpath:public.pem")
+    private Resource publicKeyPem;
+
+    /**
+     * 默认忽略url
+     */
+    private static final String[] DEFAULT_IGNORE_URLS = new String[] { "/actuator/**",
+            "/error",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/doc.html",
+            "/webjars/**" };
+    @Bean
+    @Order
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                // 所有请求需要验证
+                .authorizeHttpRequests(authorize ->
+                        authorize.requestMatchers(DEFAULT_IGNORE_URLS).permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
+                // .formLogin(Customizer.withDefaults())
+                .oauth2ResourceServer(resource -> resource
+                        .jwt(jwt -> jwt.decoder(jwtDecoder(jwkSource())))
+                        .bearerTokenResolver(bearerTokenResolver())
+                )
+                .csrf(AbstractHttpConfigurer::disable)
+                .build();
+    }
+
+
+    /**
+     * 从request请求中那个地方获取到token
+     */
+    private BearerTokenResolver bearerTokenResolver() {
+        DefaultBearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver();
+        // 设置请求头的参数，即从这个请求头中获取到token
+        bearerTokenResolver.setBearerTokenHeaderName(HttpHeaders.AUTHORIZATION);
+        bearerTokenResolver.setAllowFormEncodedBodyParameter(false);
+        // 是否可以从uri请求参数中获取token
+        bearerTokenResolver.setAllowUriQueryParameter(false);
+        return bearerTokenResolver;
+    }
+
+    @Bean
+    @SneakyThrows
+    @ConditionalOnMissingBean
+    public JWKSource<SecurityContext> jwkSource() {
+        RSAPublicKey publicKey = JwtSecretUtils.readReaPublicKey(publicKeyPem.getContentAsByteArray());
+        RSAKey rsaKey = new RSAKey.Builder(publicKey)
+                .keyID(JwtSecretUtils.KEY_ID)
+                .build();
+        JWKSet jwkSet = new JWKSet(rsaKey);
+        return new ImmutableJWKSet<>(jwkSet);
+    }
+
+    @Bean
+    public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
+        Set<JWSAlgorithm> jwsAlgorithm = new HashSet<>();
+        jwsAlgorithm.addAll(JWSAlgorithm.Family.RSA);
+        jwsAlgorithm.addAll(JWSAlgorithm.Family.EC);
+        jwsAlgorithm.addAll(JWSAlgorithm.Family.HMAC_SHA);
+        ConfigurableJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
+        JWSKeySelector<SecurityContext> jwsKeySelector =
+                new JWSVerificationKeySelector<>(jwsAlgorithm, jwkSource);
+        jwtProcessor.setJWSKeySelector(jwsKeySelector);
+        // Override the default Nimbus claims set verifier as NimbusJwtDecoder handles it instead
+        jwtProcessor.setJWTClaimsSetVerifier((claims, context) -> {
+        });
+        return new NimbusJwtDecoder(jwtProcessor);
+    }
+}
