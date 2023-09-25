@@ -55,9 +55,9 @@ public class OpenApiConfig {
                 .type(SecurityScheme.Type.OAUTH2)
                 .flows(new OAuthFlows()
                         .authorizationCode(
-                                new OAuthFlow().tokenUrl("http://localhost:8080/oauth2/token")
-                                        .authorizationUrl("http://localhost:8080/oauth2/authorize?scope=message.read")
-                                        .refreshUrl("http://localhost:8081/webjars/oauth/oauth2.html")
+                                new OAuthFlow().tokenUrl("http://127.0.0.1:8080/oauth2/token")
+                                        .authorizationUrl("http://127.0.0.1:8080/oauth2/authorize?scope=message.read")
+                                        .refreshUrl("http://127.0.0.1:8081/webjars/oauth/oauth2.html")
                                         .scopes(new Scopes().addString("openid", "获取用户信息"))
                         )
                 );

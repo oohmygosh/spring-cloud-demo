@@ -26,7 +26,7 @@
 
         <dependency>
             <groupId>com.vipicu.demo.cloud</groupId>
-            <artifactId>db-h2</artifactId>
+            <artifactId>db-sqlite</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

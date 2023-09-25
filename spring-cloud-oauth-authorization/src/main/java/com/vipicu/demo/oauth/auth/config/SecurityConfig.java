@@ -171,7 +171,7 @@ public class SecurityConfig {
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=openid%20profile&redirect_uri=http://127.0.0.1:8080/authorized">openid&profile</a>
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=openid%20profile&redirect_uri=http://127.0.0.1:8081/webjars/oauth/oauth2.html">openid&profile</a>
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=http://127.0.0.1:8081/webjars/oauth/oauth2.html">openid&profile</a>
-     * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=http://127.0.0.1:8080/webjars/oauth/oauth2.html">openid&profile</a>
+     * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=http://127.0.0.1:9999/webjars/oauth/oauth2.html">openid&profile</a>
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=http://127.0.0.1:8080/doc.html">message.read</a>
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=https://www.baidu.com">message.read</a>
      *
@@ -194,6 +194,8 @@ public class SecurityConfig {
                 .redirectUri("https://www.baidu.com")
                 .redirectUri("http://127.0.0.1:8080/authorized")
                 .redirectUri("http://127.0.0.1:8081/webjars/oauth/oauth2.html")
+                .redirectUri("http://127.0.0.1:9999/webjars/oauth/oauth2.html")
+                .redirectUri("http://localhost:9999/webjars/oauth/oauth2.html")
                 .redirectUri("http://localhost:8081/webjars/oauth/oauth2.html")
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)

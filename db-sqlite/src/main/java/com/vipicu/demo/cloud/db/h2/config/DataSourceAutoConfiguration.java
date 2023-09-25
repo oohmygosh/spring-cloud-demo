@@ -4,17 +4,13 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
-import org.springframework.boot.autoconfigure.sql.init.SqlDataSourceScriptDatabaseInitializer;
-import org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.boot.sql.init.DatabaseInitializationMode;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
-import java.util.Collections;
 
 /**
  * 数据源自动配置
@@ -29,6 +25,7 @@ import java.util.Collections;
 @MapperScan("com.vipicu.demo.cloud.db.*.mapper")
 @Conditional(DataSourceAutoConfiguration.DbIsMissing.class)
 public class DataSourceAutoConfiguration {
+
     /**
      * H2数据源
      *
@@ -36,29 +33,14 @@ public class DataSourceAutoConfiguration {
      */
     @Bean
     public DataSource dataSource() {
+        String url = System.getProperty("user.dir");
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("org.h2.Driver");
-        dataSourceBuilder.url("jdbc:h2:mem:test");
-        dataSourceBuilder.username("SA");
+        dataSourceBuilder.driverClassName("org.sqlite.JDBC");
+        // 暂时用这种方式获取，放在resource目录下build后不知道为什么数据没了
+        dataSourceBuilder.url("jdbc:sqlite:"+ url + "/sqlite.db");
+        dataSourceBuilder.username("");
         dataSourceBuilder.password("");
         return dataSourceBuilder.build();
-    }
-
-    /**
-     * 数据源脚本数据库初始化器
-     * 初始化数据库表 & 数据
-     *
-     * @param dataSource 数据源
-     * @return {@link SqlDataSourceScriptDatabaseInitializer}
-     */
-    @Bean
-    SqlDataSourceScriptDatabaseInitializer dataSourceScriptDatabaseInitializer(DataSource dataSource) {
-        SqlInitializationProperties sqlInitializationProperties = new SqlInitializationProperties();
-        sqlInitializationProperties.setSchemaLocations(Collections.singletonList("classpath:db/schema-h2.sql"));
-        sqlInitializationProperties.setDataLocations(Collections.singletonList("classpath:db/data-h2.sql"));
-        sqlInitializationProperties.setMode(DatabaseInitializationMode.ALWAYS);
-        return new SqlDataSourceScriptDatabaseInitializer(
-                dataSource, sqlInitializationProperties);
     }
 
     /**

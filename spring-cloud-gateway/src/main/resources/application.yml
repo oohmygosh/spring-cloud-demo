@@ -17,13 +17,31 @@ spring:
 
     gateway:
       routes:
-        - id: res
-          uri: lb://spring-cloud-oauth-resource
+#        - id: res
+#          uri: lb://spring-cloud-oauth-resource
+#          predicates:
+#            - Path=/res/**
+        - id: order-service
+          uri: lb://order-service
           predicates:
-            - Path=/**
+            - Path=/order/order/**
+          filters:
+            - RewritePath=/order/(?<segment>.*),/$\{segment}
+#          filters:
+#            - StripPrefix=1
       discovery:
         locator:
           enabled: true
   config:
     import:
       - optional:nacos:application-@profiles.active@.yml
+
+knife4j:
+  gateway:
+    enabled: true
+    strategy: discover
+    discover:
+      version: openapi3
+      enabled: true
+    tags-sorter: order
+    operations-sorter: order

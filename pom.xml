@@ -9,8 +9,7 @@
     <description>spring-cloud-demo</description>
     <modules>
         <module>spring-cloud-gateway</module>
-        <module>spring-cloud-service01</module>
-        <module>db-h2</module>
+        <module>db-sqlite</module>
         <module>spring-cloud-oauth-base</module>
         <module>spring-cloud-oauth-resource</module>
         <module>spring-cloud-oauth-authorization</module>
@@ -45,11 +44,6 @@
     </dependencies>
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-                <version>${knife4j-openapi3.version}</version>
-            </dependency>
             <!-- spring boot 依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -64,6 +58,13 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-dependencies</artifactId>
+                <version>${knife4j-openapi3.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
