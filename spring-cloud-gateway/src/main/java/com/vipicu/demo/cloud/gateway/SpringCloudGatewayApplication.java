@@ -28,7 +28,7 @@ public class SpringCloudGatewayApplication {
         log.info("""
                         ----------------------------------------------------------
                         \tApplication '{}' is running! Access URLs:
-                        \tLocal: \t\thttp://localhost:{}
+                        \tLocal: \t\thttp://127.0.0.1:{}
                         \tExternal: \thttp://{}:{}
                         \tDoc: \thttp://{}:{}/doc.html
                         ----------------------------------------------------------""",

@@ -14,9 +14,20 @@
         <module>spring-cloud-oauth-resource</module>
         <module>spring-cloud-oauth-authorization</module>
         <module>spring-cloud-nacos</module>
-        <module>spring-cloud-order</module>
     </modules>
     <packaging>pom</packaging>
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>alimaven</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </pluginRepository>
+    </pluginRepositories>
     <properties>
         <java.version>17</java.version>
         <spring-boot.version>3.1.3</spring-boot.version>
@@ -102,11 +113,6 @@
                         </exclude>
                     </excludes>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.1</version>
             </plugin>
         </plugins>
     </build>

@@ -17,10 +17,14 @@ spring:
 
     gateway:
       routes:
-        - id: res
+        - id: spring-cloud-oauth-resource
           uri: lb://spring-cloud-oauth-resource
           predicates:
             - Path=/res/**
+        - id: spring-cloud-oauth-authorization
+          uri: lb://spring-cloud-oauth-authorization
+          predicates:
+            - Path=/auth/**
       discovery:
         locator:
           enabled: true
@@ -38,6 +42,7 @@ knife4j:
       enabled: true
       excluded-services:
         - @artifactId@
+        - ${spring.cloud.gateway.routes[1].id}
       service-config:
         spring-cloud-oauth-resource:
           group-name: 资源服务
