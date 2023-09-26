@@ -21,7 +21,7 @@ spring:
         
   config:
     import:
-      - optional:nacos:application-dev.yml
+      - optional:nacos:application-@profiles.active@.yml
 server:
   port: 8081
 

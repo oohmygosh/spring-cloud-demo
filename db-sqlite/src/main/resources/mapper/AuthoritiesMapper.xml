@@ -3,7 +3,7 @@
 <mapper namespace="com.vipicu.demo.cloud.db.h2.mapper.AuthoritiesMapper">
   <resultMap id="BaseResultMap" type="com.vipicu.demo.cloud.db.h2.entity.Authorities">
     <!--@mbg.generated-->
-    <!--@Table PUBLIC.AUTHORITIES-->
+    <!--@Table AUTHORITIES-->
     <result column="USERNAME" jdbcType="VARCHAR" property="username" />
     <result column="AUTHORITY" jdbcType="VARCHAR" property="authority" />
   </resultMap>

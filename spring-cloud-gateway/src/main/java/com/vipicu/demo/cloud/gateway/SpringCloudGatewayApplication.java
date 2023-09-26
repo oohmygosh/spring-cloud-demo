@@ -25,18 +25,19 @@ public class SpringCloudGatewayApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext application = SpringApplication.run(SpringCloudGatewayApplication.class, args);
         Environment env = application.getEnvironment();
-        log.info("""
+        System.out.printf("""
                         ----------------------------------------------------------
-                        \tApplication '{}' is running! Access URLs:
-                        \tLocal: \t\thttp://127.0.0.1:{}
-                        \tExternal: \thttp://{}:{}
-                        \tDoc: \thttp://{}:{}/doc.html
-                        ----------------------------------------------------------""",
+                        \tApplication '%s' is running! Access URLs:
+                        \tLocal: \t\thttp://127.0.0.1:%s
+                        \tExternal: \thttp://%s:%s
+                        \tDoc: \thttp://%S:%s/doc.html
+                        ----------------------------------------------------------
+                        """,
                 env.getProperty("spring.application.name"),
                 env.getProperty("server.port"),
                 InetAddress.getLocalHost().getHostAddress(),
                 env.getProperty("server.port"),
-                InetAddress.getLocalHost().getHostAddress(),
+                "127.0.0.1",
                 env.getProperty("server.port"));
     }
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.vipicu.demo.cloud.db.h2.mapper.Oauth2RegisteredClientMapper">
   <resultMap id="BaseResultMap" type="com.vipicu.demo.cloud.db.h2.entity.Oauth2RegisteredClient">
     <!--@mbg.generated-->
-    <!--@Table PUBLIC.OAUTH2_REGISTERED_CLIENT-->
+    <!--@Table OAUTH2_REGISTERED_CLIENT-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
     <result column="CLIENT_ID" jdbcType="VARCHAR" property="clientId" />
     <result column="CLIENT_ID_ISSUED_AT" jdbcType="TIMESTAMP" property="clientIdIssuedAt" />

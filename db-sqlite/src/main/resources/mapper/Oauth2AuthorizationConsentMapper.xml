@@ -3,7 +3,7 @@
 <mapper namespace="com.vipicu.demo.cloud.db.h2.mapper.Oauth2AuthorizationConsentMapper">
   <resultMap id="BaseResultMap" type="com.vipicu.demo.cloud.db.h2.entity.Oauth2AuthorizationConsent">
     <!--@mbg.generated-->
-    <!--@Table PUBLIC.OAUTH2_AUTHORIZATION_CONSENT-->
+    <!--@Table OAUTH2_AUTHORIZATION_CONSENT-->
     <id column="REGISTERED_CLIENT_ID" jdbcType="VARCHAR" property="registeredClientId" />
     <id column="PRINCIPAL_NAME" jdbcType="VARCHAR" property="principalName" />
     <result column="AUTHORITIES" jdbcType="VARCHAR" property="authorities" />

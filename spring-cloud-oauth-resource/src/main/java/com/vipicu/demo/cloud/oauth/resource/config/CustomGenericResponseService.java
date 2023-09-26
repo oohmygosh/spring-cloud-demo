@@ -5,6 +5,7 @@ import com.vipicu.demo.cloud.oauth.resource.entity.ApiResult;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Content;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.converters.ConverterUtils;
 import org.springdoc.core.parsers.ReturnTypeParser;
 import org.springdoc.core.properties.SpringDocConfigProperties;
 import org.springdoc.core.service.GenericResponseService;
@@ -14,6 +15,7 @@ import org.springframework.core.ResolvableType;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -52,10 +54,26 @@ public class CustomGenericResponseService extends GenericResponseService {
     @Override
     public Content buildContent(Components components, Annotation[] annotations, String[] methodProduces, JsonView jsonView, Type returnType) {
         ResolvableType resolvableType = ResolvableType.forType(returnType);
-        if (resolvableType.getRawClass() != ApiResult.class) {
+        if (!isVoid(returnType) && resolvableType.getRawClass() != ApiResult.class) {
             returnType = ResolvableType.forClassWithGenerics(ApiResult.class, resolvableType).getType();
         }
         return super.buildContent(components, annotations, methodProduces, jsonView, returnType);
+    }
+
+    private boolean isVoid(Type returnType) {
+        boolean result = false;
+        if (!Void.TYPE.equals(returnType) && !Void.class.equals(returnType)) {
+            if (returnType instanceof ParameterizedType) {
+                Type[] types = ((ParameterizedType)returnType).getActualTypeArguments();
+                if (types != null && ConverterUtils.isResponseTypeWrapper(ResolvableType.forType(returnType).getRawClass())) {
+                    result = this.isVoid(types[0]);
+                }
+            }
+        } else {
+            result = true;
+        }
+
+        return result;
     }
 
 }

@@ -19,12 +19,10 @@ import javax.sql.DataSource;
  * @since 1.0.0
  */
 @Configuration
-@ComponentScans(value = {
-        @ComponentScan("com.vipicu.demo.*")
-})
+@ComponentScan("com.vipicu.demo.*")
 @MapperScan("com.vipicu.demo.cloud.db.*.mapper")
-@Conditional(DataSourceAutoConfiguration.DbIsMissing.class)
-public class DataSourceAutoConfiguration {
+@Conditional(DefaultDataSourceAutoConfiguration.DbIsMissing.class)
+public class DefaultDataSourceAutoConfiguration {
 
     /**
      * H2数据源
@@ -63,7 +61,7 @@ public class DataSourceAutoConfiguration {
             if (StringUtils.hasText(url) && StringUtils.hasText(username) && StringUtils.hasText(password) && StringUtils.hasText(driverClass)) {
                 return ConditionOutcome.noMatch(message.found(url).atAll());
             }
-            return ConditionOutcome.match(message.didNotFind("initialization H2.").atAll());
+            return ConditionOutcome.match(message.didNotFind("initialization Sqlite.").atAll());
         }
     }
 

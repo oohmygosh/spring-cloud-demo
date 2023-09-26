@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @author Lee
  * @since 1.0.0
  */
-@SpringBootTest
+@SpringBootTest(classes = ApplicationTest.class)
 public class MainTest {
 
     @Autowired
