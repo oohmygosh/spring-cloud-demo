@@ -26,7 +26,8 @@ public class OpenApiConfig {
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group(applicationName)
+                // fixme 详情：https://gitee.com/xiaoym/knife4j/issues/I7RAP7
+                .group("default")
                 .pathsToMatch("/**")
                 .build();
     }

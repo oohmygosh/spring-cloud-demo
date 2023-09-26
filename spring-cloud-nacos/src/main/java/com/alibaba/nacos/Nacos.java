@@ -23,9 +23,13 @@ public class Nacos {
     }
 
     private static boolean initEnv() {
+        // 单机模式
         System.setProperty("nacos.standalone", "true");
+        // 是否开启鉴权
         System.setProperty("nacos.core.auth.enabled", "true");
+        // 日志位置
         System.setProperty("server.tomcat.basedir", "logs");
+        // 日志
         System.setProperty("server.tomcat.accesslog.enabled", "false");
         return true;
     }

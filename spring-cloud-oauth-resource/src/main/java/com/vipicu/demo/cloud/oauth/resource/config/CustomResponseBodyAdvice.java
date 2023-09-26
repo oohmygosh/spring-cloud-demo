@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @since 1.0.0
  */
 @RestControllerAdvice({
-        "com.vipicu.demo.security.resource.controller"
+        "com.vipicu.demo.cloud.oauth.resource.controller"
 })
 public class CustomResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
