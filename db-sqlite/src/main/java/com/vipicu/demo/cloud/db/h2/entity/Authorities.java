@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Schema
 @Data
-@TableName(value = "PUBLIC.AUTHORITIES")
+@TableName(value = "AUTHORITIES")
 public class Authorities {
     @TableField(value = "USERNAME")
     @Schema(description="用户名")

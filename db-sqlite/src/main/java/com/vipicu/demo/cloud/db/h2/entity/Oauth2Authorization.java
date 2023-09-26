@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Schema
 @Data
-@TableName(value = "PUBLIC.OAUTH2_AUTHORIZATION")
+@TableName(value = "OAUTH2_AUTHORIZATION")
 public class Oauth2Authorization {
     @TableId(value = "ID", type = IdType.INPUT)
     @Schema(description="")

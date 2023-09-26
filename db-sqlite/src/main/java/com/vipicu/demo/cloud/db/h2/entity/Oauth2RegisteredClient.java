@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Schema
 @Data
-@TableName(value = "PUBLIC.OAUTH2_REGISTERED_CLIENT")
+@TableName(value = "OAUTH2_REGISTERED_CLIENT")
 public class Oauth2RegisteredClient {
     @TableId(value = "ID", type = IdType.INPUT)
     @Schema(description="")

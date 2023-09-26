@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Schema
 @Data
-@TableName(value = "PUBLIC.OAUTH2_AUTHORIZATION_CONSENT")
+@TableName(value = "OAUTH2_AUTHORIZATION_CONSENT")
 public class Oauth2AuthorizationConsent {
     @TableId(value = "REGISTERED_CLIENT_ID", type = IdType.INPUT)
     @Schema(description="")
