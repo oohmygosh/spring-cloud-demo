@@ -12,14 +12,14 @@ import lombok.Data;
 @TableName(value = "OAUTH2_AUTHORIZATION_CONSENT")
 public class Oauth2AuthorizationConsent {
     @TableId(value = "REGISTERED_CLIENT_ID", type = IdType.INPUT)
-    @Schema(description="")
+    @Schema(description="注册客户端ID")
     private String registeredClientId;
 
     @TableField(value = "PRINCIPAL_NAME")
-    @Schema(description="")
+    @Schema(description="用户名")
     private String principalName;
 
     @TableField(value = "AUTHORITIES")
-    @Schema(description="")
+    @Schema(description="授权")
     private String authorities;
 }
