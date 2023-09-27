@@ -2,6 +2,8 @@ package com.vipicu.demo.cloud.oauth.resource.controller;
 
 import com.vipicu.demo.cloud.db.h2.entity.Authorities;
 import com.vipicu.demo.cloud.db.h2.service.AuthoritiesService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +21,13 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/authorities")
+@Tag(name = "授权管理")
 public class AuthoritiesController {
 
     private final AuthoritiesService authoritiesService;
 
     @GetMapping
+    @Operation(summary = "获取所有权限")
     public List<Authorities> fetchAuthorization() {
         return  authoritiesService.list();
     }

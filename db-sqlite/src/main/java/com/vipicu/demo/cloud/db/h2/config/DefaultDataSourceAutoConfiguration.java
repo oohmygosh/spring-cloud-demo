@@ -43,7 +43,7 @@ public class DefaultDataSourceAutoConfiguration {
 
     /**
      * 匹配条件
-     * 如果没有配置数据源则使用内置H2数据源
+     * 如果没有配置数据源则使用内置数据源
      *
      * @author Lee
      * @since 1.0.0
