@@ -12,6 +12,7 @@ import com.nimbusds.jose.proc.SecurityContext;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
 import com.vipicu.demo.cloud.oauth.utils.JwtSecretUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -29,6 +30,7 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenResolv
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.nio.charset.StandardCharsets;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +43,7 @@ import java.util.Set;
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class OAuthResourceOwnerConfig {
 
     /**
@@ -50,15 +53,22 @@ public class OAuthResourceOwnerConfig {
     private Resource publicKeyPem;
 
     /**
+     * security配置
+     */
+    private final SecurityProperties securityProperties;
+
+
+    /**
      * 默认忽略url
      */
-    private static final String[] DEFAULT_IGNORE_URLS = new String[] { "/actuator/**",
+    private static final String[] DEFAULT_IGNORE_URLS = new String[]{"/actuator/**",
             "/error",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/doc.html",
-            "/webjars/**" };
+            "/webjars/**"};
+
     @Bean
     @Order
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -69,7 +79,6 @@ public class OAuthResourceOwnerConfig {
                                 .anyRequest()
                                 .authenticated()
                 )
-                // .formLogin(Customizer.withDefaults())
                 .oauth2ResourceServer(resource -> resource
                         .jwt(jwt -> jwt.decoder(jwtDecoder(jwkSource())))
                         .bearerTokenResolver(bearerTokenResolver())
@@ -96,7 +105,7 @@ public class OAuthResourceOwnerConfig {
     @SneakyThrows
     @ConditionalOnMissingBean
     public JWKSource<SecurityContext> jwkSource() {
-        RSAPublicKey publicKey = JwtSecretUtils.readReaPublicKey(publicKeyPem.getContentAsByteArray());
+        RSAPublicKey publicKey = JwtSecretUtils.readReaPublicKey(securityProperties.getPublicKey().getBytes(StandardCharsets.UTF_8));
         RSAKey rsaKey = new RSAKey.Builder(publicKey)
                 .keyID(JwtSecretUtils.KEY_ID)
                 .keyID("f2d4da56-849e-404b-993b-1d966db67237")

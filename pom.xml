@@ -14,12 +14,18 @@
         <module>spring-cloud-oauth-resource</module>
         <module>spring-cloud-oauth-authorization</module>
         <module>spring-cloud-nacos</module>
+        <module>spring-cloud-swagger</module>
+        <module>spring-cloud-service-base</module>
     </modules>
     <packaging>pom</packaging>
     <repositories>
         <repository>
             <id>aliYunMaven</id>
             <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
     <pluginRepositories>

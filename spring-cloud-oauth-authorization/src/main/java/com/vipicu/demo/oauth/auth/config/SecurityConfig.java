@@ -5,12 +5,14 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import com.vipicu.demo.cloud.oauth.config.SecurityProperties;
 import com.vipicu.demo.cloud.oauth.utils.JwtSecretUtils;
 import com.vipicu.demo.oauth.auth.support.core.CustomAuthorizationGrantType;
 import com.vipicu.demo.oauth.auth.support.handler.CustomAuthenticationFailureHandler;
 import com.vipicu.demo.oauth.auth.support.handler.CustomAuthenticationSuccessHandler;
 import com.vipicu.demo.oauth.auth.support.password.OAuth2ResourceOwnerPasswordAuthenticationConverter;
 import com.vipicu.demo.oauth.auth.support.password.OAuth2ResourceOwnerPasswordAuthenticationProvider;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -53,6 +55,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.nio.charset.StandardCharsets;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
@@ -66,19 +69,10 @@ import java.util.UUID;
  * @since 1.0.0
  */
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    /**
-     * 私钥
-     */
-    @Value("classpath:private.pem")
-    private Resource privateKeyPem;
-
-    /**
-     * 公钥
-     */
-    @Value("classpath:public.pem")
-    private Resource publicKeyPem;
+    private final SecurityProperties securityProperties;
 
     /**
      * request -> xToken 注入请求转换器
@@ -261,8 +255,8 @@ public class SecurityConfig {
     @Bean
     @SneakyThrows
     public JWKSource<SecurityContext> jwkSource() {
-        RSAPublicKey publicKey = JwtSecretUtils.readReaPublicKey(publicKeyPem.getContentAsByteArray());
-        RSAPrivateKey privateKey = JwtSecretUtils.readRsaPrivateKey(privateKeyPem.getContentAsByteArray());
+        RSAPublicKey publicKey = JwtSecretUtils.readReaPublicKey(securityProperties.getPublicKey().getBytes(StandardCharsets.UTF_8));
+        RSAPrivateKey privateKey = JwtSecretUtils.readRsaPrivateKey(securityProperties.getPrivateKey().getBytes(StandardCharsets.UTF_8));
         RSAKey rsaKey = new RSAKey.Builder(publicKey)
                 .privateKey(privateKey)
                 .keyID("f2d4da56-849e-404b-993b-1d966db67237")

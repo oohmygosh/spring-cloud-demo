@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 public class DefaultDataSourceAutoConfiguration {
 
     /**
-     * H2数据源
+     * 数据源
      *
      * @return {@link DataSource}
      */

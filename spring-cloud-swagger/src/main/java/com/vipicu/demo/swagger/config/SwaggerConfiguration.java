@@ -1,9 +1,10 @@
-package com.vipicu.demo.cloud.oauth.resource.config;
+package com.vipicu.demo.swagger.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.*;
+import lombok.RequiredArgsConstructor;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,33 +14,27 @@ import org.springframework.http.HttpHeaders;
 import java.util.Map;
 
 /**
- * 开放API配置
+ * swagger配置
  *
  * @author Administrator
  * @since 1.0.0
  */
 @Configuration
-public class OpenApiConfig {
+@RequiredArgsConstructor
+public class SwaggerConfiguration {
 
-    @Value("${spring.application.name:api}")
-    private String applicationName;
-    @Bean
-    public GroupedOpenApi publicApi() {
-        return GroupedOpenApi.builder()
-                // fixme 详情：https://gitee.com/xiaoym/knife4j/issues/I7RAP7
-                .group("default")
-                .pathsToMatch("/**")
-                .build();
-    }
+    private final SwaggerProperties swaggerProperties;
+
 
     @Bean
     public OpenAPI customOpenAPI() {
+        SwaggerProperties.Info info = swaggerProperties.getInfo();
         return new OpenAPI()
                 .info(new Info()
-                        .title("OAuth2 资源服务")
-                        .version("1.0")
-                        .description("OAuth2 资源服务例子")
-                        .termsOfService("http://www.vipicu.com")
+                        .title(info.getTitle())
+                        .version(info.getVersion())
+                        .description(info.getDescription())
+                        .termsOfService(info.getTermsOfService())
                 )
                 // 添加请求头
                 .addSecurityItem(new SecurityRequirement().addList(HttpHeaders.AUTHORIZATION))
@@ -52,14 +47,17 @@ public class OpenApiConfig {
      * @return {@link Components}
      */
     private Components oauth2Component() {
+        Scopes scopes = new Scopes();
+        SwaggerProperties.Oauth2 oauth2 = swaggerProperties.getOauth2();
+        oauth2.getScopes().forEach(scopes::addString);
         SecurityScheme passwordFlowScheme = new SecurityScheme()
                 .type(SecurityScheme.Type.OAUTH2)
                 .flows(new OAuthFlows()
                         .authorizationCode(
-                                new OAuthFlow().tokenUrl("http://127.0.0.1:8080/oauth2/token")
-                                        .authorizationUrl("http://127.0.0.1:8080/oauth2/authorize?scope=message.read")
-                                        .refreshUrl("http://127.0.0.1:8081/webjars/oauth/oauth2.html")
-                                        .scopes(new Scopes().addString("openid", "获取用户信息"))
+                                new OAuthFlow().tokenUrl(oauth2.getTokenUrl())
+                                        .authorizationUrl(oauth2.getAuthorizationUrl())
+                                        .refreshUrl(oauth2.getRedirectUrl())
+                                        .scopes(scopes)
                         )
                 );
 
