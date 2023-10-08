@@ -9,8 +9,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.vipicu.demo</groupId>
-    <artifactId>spring-cloud-service-base</artifactId>
+    <groupId>com.vipicu.demo.cloud</groupId>
+    <artifactId>spring-cloud-service-resource01</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -20,24 +20,18 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.vipicu.demo.cloud</groupId>
-            <artifactId>spring-cloud-swagger</artifactId>
+            <groupId>com.vipicu.demo</groupId>
+            <artifactId>spring-cloud-service-base</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.vipicu.demo.cloud</groupId>
-            <artifactId>spring-cloud-oauth-base</artifactId>
+            <artifactId>db-sqlite</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!--注册中心客户端-->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!--配置中心客户端-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

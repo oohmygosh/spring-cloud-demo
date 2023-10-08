@@ -11,11 +11,12 @@
         <module>spring-cloud-gateway</module>
         <module>db-sqlite</module>
         <module>spring-cloud-oauth-base</module>
-        <module>spring-cloud-oauth-resource</module>
         <module>spring-cloud-oauth-authorization</module>
         <module>spring-cloud-nacos</module>
         <module>spring-cloud-swagger</module>
         <module>spring-cloud-service-base</module>
+        <module>spring-cloud-service-resource01</module>
+        <module>spring-cloud-service-resource02</module>
     </modules>
     <packaging>pom</packaging>
     <repositories>

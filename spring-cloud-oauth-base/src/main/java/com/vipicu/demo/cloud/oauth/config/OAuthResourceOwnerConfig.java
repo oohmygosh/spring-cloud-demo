@@ -47,16 +47,9 @@ import java.util.Set;
 public class OAuthResourceOwnerConfig {
 
     /**
-     * 公钥
-     */
-    @Value("classpath:public.pem")
-    private Resource publicKeyPem;
-
-    /**
      * security配置
      */
     private final SecurityProperties securityProperties;
-
 
     /**
      * 默认忽略url

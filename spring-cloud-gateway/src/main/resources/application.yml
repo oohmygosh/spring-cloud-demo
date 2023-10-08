@@ -17,14 +17,18 @@ spring:
 
     gateway:
       routes:
-        - id: spring-cloud-oauth-resource
-          uri: lb://spring-cloud-oauth-resource
-          predicates:
-            - Path=/res/**
         - id: spring-cloud-oauth-authorization
           uri: lb://spring-cloud-oauth-authorization
           predicates:
             - Path=/auth/**
+        - id: spring-cloud-service-resource01
+          uri: lb://spring-cloud-service-resource01
+          predicates:
+            - Path=/res01/**
+        - id: spring-cloud-service-resource02
+          uri: lb://spring-cloud-service-resource02
+          predicates:
+            - Path=/res02/**
       discovery:
         locator:
           enabled: true
@@ -42,10 +46,11 @@ knife4j:
       enabled: true
       excluded-services:
         - @artifactId@
-        - ${spring.cloud.gateway.routes[1].id}
+        - ${spring.cloud.gateway.routes[0].id}
       service-config:
-        spring-cloud-oauth-resource:
-          group-name: 资源服务
-          order: 1
+        spring-cloud-service-resource01:
+          group-name: 资源服务01
+        spring-cloud-service-resource02:
+          group-name: 资源服务02
     tags-sorter: order
     operations-sorter: order

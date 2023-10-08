@@ -1,1 +1,2 @@
 com.vipicu.demo.cloud.oauth.config.OAuthResourceOwnerConfig
+com.vipicu.demo.cloud.oauth.config.SecurityProperties
