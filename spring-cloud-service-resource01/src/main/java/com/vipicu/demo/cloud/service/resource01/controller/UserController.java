@@ -2,6 +2,7 @@ package com.vipicu.demo.cloud.service.resource01.controller;
 
 import com.vipicu.demo.cloud.db.h2.entity.Users;
 import com.vipicu.demo.cloud.db.h2.service.UsersService;
+import com.vipicu.demo.cloud.service.resource01.feign.RemoteTestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.List;
 public class UserController {
 
     private final UsersService usersService;
+    private final RemoteTestService testService;
 
     @GetMapping("/all")
     @Operation(summary = "获取所有用户")
@@ -37,7 +39,7 @@ public class UserController {
     @PutMapping
     @Operation(summary = "測試")
     public String  test() {
-        return "SecurityContextHolder.getContext().getAuthentication()";
+        return testService.test();
     }
 
 }

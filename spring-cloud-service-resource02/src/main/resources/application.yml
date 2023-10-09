@@ -49,3 +49,8 @@ springdoc:
       paths-to-match: /**
   cache:
     disabled: true
+
+# 日志
+logging:
+  level:
+    com.vipicu: debug

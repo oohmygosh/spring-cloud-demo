@@ -17,6 +17,7 @@
         <module>spring-cloud-service-base</module>
         <module>spring-cloud-service-resource01</module>
         <module>spring-cloud-service-resource02</module>
+        <module>spring-cloud-feign</module>
     </modules>
     <packaging>pom</packaging>
     <repositories>
