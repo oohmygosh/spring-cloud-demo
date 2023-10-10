@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Map;
 
 /**
- * 昂首阔步属性
+ * swagger属性
  *
  * @author Administrator
  * @since 1.0.0

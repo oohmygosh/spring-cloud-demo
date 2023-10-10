@@ -1,5 +1,6 @@
 package com.vipicu.demo.cloud.service.resource01.feign;
 
+import com.vipicu.demo.service.entity.ApiResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -7,6 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface RemoteTestService {
 
     @GetMapping("/test")
-    String test();
+    ApiResult<String> test();
 
 }

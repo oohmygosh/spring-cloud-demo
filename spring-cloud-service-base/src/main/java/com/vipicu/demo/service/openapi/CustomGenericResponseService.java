@@ -52,26 +52,10 @@ public class CustomGenericResponseService extends GenericResponseService {
     @Override
     public Content buildContent(Components components, Annotation[] annotations, String[] methodProduces, JsonView jsonView, Type returnType) {
         ResolvableType resolvableType = ResolvableType.forType(returnType);
-        if (!isVoid(returnType) && resolvableType.getRawClass() != ApiResult.class) {
+        if (resolvableType.getRawClass() != ApiResult.class) {
             returnType = ResolvableType.forClassWithGenerics(ApiResult.class, resolvableType).getType();
         }
         return super.buildContent(components, annotations, methodProduces, jsonView, returnType);
-    }
-
-    private boolean isVoid(Type returnType) {
-        boolean result = false;
-        if (!Void.TYPE.equals(returnType) && !Void.class.equals(returnType)) {
-            if (returnType instanceof ParameterizedType) {
-                Type[] types = ((ParameterizedType)returnType).getActualTypeArguments();
-                if (types != null && ConverterUtils.isResponseTypeWrapper(ResolvableType.forType(returnType).getRawClass())) {
-                    result = this.isVoid(types[0]);
-                }
-            }
-        } else {
-            result = true;
-        }
-
-        return result;
     }
 
 }

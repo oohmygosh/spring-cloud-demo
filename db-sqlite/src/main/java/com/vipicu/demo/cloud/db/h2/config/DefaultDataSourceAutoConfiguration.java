@@ -31,11 +31,11 @@ public class DefaultDataSourceAutoConfiguration {
      */
     @Bean
     public DataSource dataSource() {
-        String url = System.getProperty("user.dir");
+        String path = System.getProperty("user.dir");
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.sqlite.JDBC");
         // 暂时用这种方式获取，放在resource目录下build后不知道为什么数据没了
-        dataSourceBuilder.url("jdbc:sqlite:"+ url + "/sqlite.db");
+        dataSourceBuilder.url("jdbc:sqlite:"+ path + "/sqlite.db");
         dataSourceBuilder.username("");
         dataSourceBuilder.password("");
         return dataSourceBuilder.build();
