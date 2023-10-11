@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -135,6 +136,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
         ;
+        http.apply(new FormIdentityLoginConfigurer());
         DefaultSecurityFilterChain build = http.build();
         addCustomOAuth2GrantAuthenticationProvider(http);
         return build;
@@ -183,7 +185,6 @@ public class SecurityConfig {
                 .authorizationGrantType(CustomAuthorizationGrantType.PASSWORD)
                 // .clientSecretExpiresAt(Instant.MAX)
                 .redirectUri("http://127.0.0.1:8080/doc.html")
-                .redirectUri("https://www.baidu.com")
                 .redirectUri("http://127.0.0.1:8080/authorized")
                 .redirectUri("http://127.0.0.1:8081/webjars/oauth/oauth2.html")
                 .redirectUri("http://127.0.0.1:8082/webjars/oauth/oauth2.html")
@@ -203,8 +204,8 @@ public class SecurityConfig {
         return registeredClientRepository;
     }
 
-    @Bean
-    @Order(2)
+    // @Bean
+    // @Order(2)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             throws Exception {
         http

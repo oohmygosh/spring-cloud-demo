@@ -1,4 +1,4 @@
-package com.vipicu.demo.cloud.service.resource01.feign;
+package com.vipicu.demo.cloud.oauth.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
-public class OAuthRequestInterceptor implements RequestInterceptor {
+public class OAuth2RequestInterceptor implements RequestInterceptor {
 
 	private final BearerTokenResolver tokenResolver;
 
