@@ -17,10 +17,7 @@ import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -41,9 +38,9 @@ import java.util.Set;
  * @author Administrator
  * @since 1.0.0
  */
+@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Configuration
 public class OAuthResourceOwnerConfig {
 
     /**
@@ -62,8 +59,16 @@ public class OAuthResourceOwnerConfig {
             "/doc.html",
             "/webjars/**"};
 
+
     @Bean
-    public SecurityFilterChain resourceSecurityFilterChain(HttpSecurity http) throws Exception {
+    @ConditionalOnMissingBean
+    public SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration(){
+        return new SecurityCustomExtensionConfiguration();
+    }
+
+    @Bean
+    public SecurityFilterChain resourceSecurityFilterChain(HttpSecurity http, SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration) throws Exception {
+        http.apply(securityCustomExtensionConfiguration);
         return http
                 // 所有请求需要验证
                 .authorizeHttpRequests(authorize ->
@@ -75,7 +80,7 @@ public class OAuthResourceOwnerConfig {
                         .jwt(jwt -> jwt.decoder(jwtDecoder(jwkSource())))
                         .bearerTokenResolver(bearerTokenResolver())
                 )
-                .formLogin(Customizer.withDefaults())
+                // .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }

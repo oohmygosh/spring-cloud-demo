@@ -4,6 +4,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
@@ -28,7 +29,8 @@ public class SecurityOpenApiCustomizer implements GlobalOpenApiCustomizer {
                                         new Parameter().name("password").example("admin").schema(new StringSchema()).description("密码"),
                                         new Parameter().name("code").schema(new StringSchema()).description("授权码"),
                                         new Parameter().name("redirect_uri").schema(new StringSchema()).description("重定向uri"),
-                                        new Parameter().name("grant_type").example("password").schema(new StringSchema()).required(true).description("类型")
+                                        new Parameter().name("grant_type").example("password").schema(new StringSchema()).required(true).description("类型"),
+                                        new HeaderParameter().name("Authorization").required(true).example("Basic bWVzc2FnaW5nLWNsaWVudDpzZWNyZXQ=").schema(new StringSchema()).description("bearer token")
                                 )
                         )
                         .responses(new ApiResponses()

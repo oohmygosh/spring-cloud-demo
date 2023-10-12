@@ -5,7 +5,6 @@ import com.vipicu.demo.service.entity.ApiResult;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Content;
 import lombok.extern.slf4j.Slf4j;
-import org.springdoc.core.converters.ConverterUtils;
 import org.springdoc.core.parsers.ReturnTypeParser;
 import org.springdoc.core.properties.SpringDocConfigProperties;
 import org.springdoc.core.service.GenericResponseService;
@@ -14,7 +13,6 @@ import org.springdoc.core.utils.PropertyResolverUtils;
 import org.springframework.core.ResolvableType;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
