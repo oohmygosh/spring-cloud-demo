@@ -20,15 +20,16 @@ public class SecurityOpenApiCustomizer implements GlobalOpenApiCustomizer {
     @Override
     public void customise(OpenAPI openApi) {
         openApi.path("/oauth2/token", new PathItem().post(
-                new Operation().description("Oauth2密码认证")
+                new Operation().description("Oauth2认证")
                         .addTagsItem("Security")
-                        .operationId("Oauth2密码认证")
+                        .operationId("Oauth2认证")
                         .parameters(
                                 List.of(
                                         new Parameter().name("username").example("admin").schema(new StringSchema()).description("用户名"),
                                         new Parameter().name("password").example("admin").schema(new StringSchema()).description("密码"),
                                         new Parameter().name("code").schema(new StringSchema()).description("授权码"),
                                         new Parameter().name("redirect_uri").schema(new StringSchema()).description("重定向uri"),
+                                        new Parameter().name("refresh_token").schema(new StringSchema()).description("刷新Token"),
                                         new Parameter().name("grant_type").example("password").schema(new StringSchema()).required(true).description("类型"),
                                         new HeaderParameter().name("Authorization").required(true).example("Basic bWVzc2FnaW5nLWNsaWVudDpzZWNyZXQ=").schema(new StringSchema()).description("bearer token")
                                 )

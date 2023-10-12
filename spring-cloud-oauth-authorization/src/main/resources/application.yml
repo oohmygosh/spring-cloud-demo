@@ -15,7 +15,15 @@ spring:
         
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
-        
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: efc7c90ff3c01911e1f8
+            client-secret: b9dc1544c00186ad1bc57c53fa52f5409060bce4
+            redirect-uri: http://localhost:8080/login/oauth2/code/github
   config:
     import:
       - optional:nacos:application-@profiles.active@.yml

@@ -48,6 +48,8 @@ knife4j:
         - @artifactId@
 #        - ${spring.cloud.gateway.routes[0].id}
       service-config:
+        spring-cloud-oauth-authorization:
+          group-name: oauth2服务
         spring-cloud-service-resource01:
           group-name: 资源服务01
         spring-cloud-service-resource02:
