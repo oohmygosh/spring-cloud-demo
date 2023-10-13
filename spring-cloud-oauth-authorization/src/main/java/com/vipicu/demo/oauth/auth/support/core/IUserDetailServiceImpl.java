@@ -1,4 +1,4 @@
-package com.vipicu.demo.oauth.auth.impl;
+package com.vipicu.demo.oauth.auth.support.core;
 
 import com.vipicu.demo.cloud.db.h2.entity.Users;
 import com.vipicu.demo.cloud.db.h2.service.UsersService;
