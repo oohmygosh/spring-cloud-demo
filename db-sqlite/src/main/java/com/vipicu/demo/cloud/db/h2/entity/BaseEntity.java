@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
 
@@ -40,7 +41,7 @@ public class BaseEntity extends SuperEntity {
      */
     @TableField(fill = FieldFill.INSERT)
     @Schema(description = "创建时间")
-    protected LocalDateTime createTime;
+    protected Date createTime;
 
     /**
      * 修改人
@@ -54,7 +55,7 @@ public class BaseEntity extends SuperEntity {
      */
     @TableField(fill = FieldFill.UPDATE)
     @Schema(description = "修改时间")
-    protected LocalDateTime updateTime;
+    protected Date updateTime;
 
     /**
      * 删除 0、否 1、是

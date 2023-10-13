@@ -1,7 +1,7 @@
 package com.vipicu.demo.cloud.service.resource01.controller;
 
-import com.vipicu.demo.cloud.db.h2.entity.Users;
-import com.vipicu.demo.cloud.db.h2.service.UsersService;
+import com.vipicu.demo.cloud.db.h2.entity.SysUser;
+import com.vipicu.demo.cloud.db.h2.service.ISysUserService;
 import com.vipicu.demo.cloud.service.resource01.feign.RemoteTestService;
 import com.vipicu.demo.service.entity.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,13 +22,13 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UsersService usersService;
     private final RemoteTestService testService;
+    private final ISysUserService userService;
 
     @GetMapping("/all")
     @Operation(summary = "获取所有用户")
-    public List<Users> fetchAllUsers() {
-        return usersService.list();
+    public List<SysUser> fetchAllUsers() {
+        return userService.list();
     }
 
     @GetMapping

@@ -1,7 +1,7 @@
 package com.vipicu.demo.oauth.auth.support.core;
 
-import com.vipicu.demo.cloud.db.h2.entity.Users;
-import com.vipicu.demo.cloud.db.h2.service.UsersService;
+import com.vipicu.demo.cloud.db.h2.entity.SysUser;
+import com.vipicu.demo.cloud.db.h2.service.ISysUserService;
 import com.vipicu.demo.oauth.auth.entity.IUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,14 +18,20 @@ import java.util.Collection;
 @AllArgsConstructor
 public class IUserDetailServiceImpl implements UserDetailsService {
 
-    private final UsersService usersService;
+    private final ISysUserService usersService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users users = usersService.lambdaQuery().eq(Users::getUsername, username).one();
-        Assert.notNull(users, "不存在用户！");
+        SysUser user = usersService.lambdaQuery().eq(SysUser::getUsername, username).one();
+        Assert.notNull(user, "不存在用户！");
         Collection<GrantedAuthority> authorities = AuthorityUtils
                 .createAuthorityList("admin");
-        return new IUserDetails(users.getUsername(),  "{bcrypt}" + users.getPassword(), authorities);
+        return new IUserDetails(user.getUsername(),
+                "{bcrypt}" + user.getPassword(),
+                true,
+                true,
+                true,
+                user.getStatus() == 1,
+                authorities);
     }
 }
