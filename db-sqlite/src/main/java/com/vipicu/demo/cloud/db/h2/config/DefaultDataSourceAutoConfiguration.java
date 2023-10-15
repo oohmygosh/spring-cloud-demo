@@ -21,7 +21,6 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("com.vipicu.demo.*")
 @MapperScan("com.vipicu.demo.cloud.db.*.mapper")
-@Conditional(DefaultDataSourceAutoConfiguration.DbIsMissing.class)
 public class DefaultDataSourceAutoConfiguration {
 
     /**
@@ -30,6 +29,7 @@ public class DefaultDataSourceAutoConfiguration {
      * @return {@link DataSource}
      */
     @Bean
+    @Conditional(DbIsMissing.class)
     public DataSource dataSource() {
         String path = System.getProperty("user.dir");
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();

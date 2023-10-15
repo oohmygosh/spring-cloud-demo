@@ -1,11 +1,11 @@
 spring:
   application:
     name: @artifactId@
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://nas.r:2345/oauth
-#    password: postgres_password
-#    username: postgres
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://nas.r:2345/oauth
+    password: postgres_password
+    username: postgres
   cloud:
     nacos:
       username: @nacos.username@
@@ -15,10 +15,10 @@ spring:
         watch:
           enabled: true
         watch-delay: 1000
-        
+
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
-        
+
   config:
     import:
       - optional:nacos:application-@profiles.active@.yml
