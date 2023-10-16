@@ -8,10 +8,6 @@ import java.util.Collection;
 
 public class IUserDetails extends User implements Serializable {
 
-    public IUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
-    }
-
     /**
      * 国际单位详细信息
      *

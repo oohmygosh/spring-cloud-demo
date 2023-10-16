@@ -34,6 +34,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -93,7 +94,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
@@ -278,13 +279,11 @@ public class SecurityConfig {
     private void addCustomOAuth2GrantAuthenticationProvider(HttpSecurity http) {
         AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
         OAuth2AuthorizationService authorizationService = http.getSharedObject(OAuth2AuthorizationService.class);
+        @SuppressWarnings("unchecked")
+        OAuth2TokenGenerator<OAuth2Token> tokenGenerator = http.getSharedObject(OAuth2TokenGenerator.class);
 
         OAuth2ResourceOwnerPasswordAuthenticationProvider resourceOwnerPasswordAuthenticationProvider = new OAuth2ResourceOwnerPasswordAuthenticationProvider(
-                authenticationManager, authorizationService,
-                new DelegatingOAuth2TokenGenerator(
-                        new JwtGenerator(new NimbusJwtEncoder(jwkSource())),
-                        new OAuth2RefreshTokenGenerator()
-                )
+                authenticationManager, authorizationService,tokenGenerator
         );
 
         // 处理 UsernamePasswordAuthenticationToken

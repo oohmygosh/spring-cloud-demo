@@ -1,11 +1,6 @@
 spring:
   application:
     name: @artifactId@
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://nas.r:2345/oauth
-    password: postgres_password
-    username: postgres
   cloud:
     nacos:
       username: @nacos.username@

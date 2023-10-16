@@ -34,7 +34,7 @@ public class IUserDetailServiceImpl implements UserDetailsService {
         List<SysRole> roleByUserId = roleMapper.getRoleByUserId(user.getId());
         List<String> roles;
         if (!CollectionUtils.isEmpty(roleByUserId))
-            roles = roleByUserId.stream().map(SysRole::getName).toList();
+            roles = roleByUserId.stream().map(SysRole::getAlias).map("ROLE_"::concat).toList();
         else
             roles = Collections.emptyList();
         Collection<GrantedAuthority> authorities = AuthorityUtils
