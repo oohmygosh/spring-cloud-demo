@@ -23,6 +23,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
@@ -69,6 +71,10 @@ public class OAuthResourceOwnerConfig {
     @Bean
     public SecurityFilterChain resourceSecurityFilterChain(HttpSecurity http, SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration) throws Exception {
         http.apply(securityCustomExtensionConfiguration);
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        JwtGrantedAuthoritiesConverter authoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        authoritiesConverter.setAuthoritiesClaimName("user_info");
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(authoritiesConverter);
         return http
                 // 所有请求需要验证
                 .authorizeHttpRequests(authorize ->
@@ -77,7 +83,7 @@ public class OAuthResourceOwnerConfig {
                                 .authenticated()
                 )
                 .oauth2ResourceServer(resource -> resource
-                        .jwt(jwt -> jwt.decoder(jwtDecoder(jwkSource())))
+                        .jwt(jwt -> jwt.decoder(jwtDecoder(jwkSource())).jwtAuthenticationConverter(jwtAuthenticationConverter))
                         .bearerTokenResolver(bearerTokenResolver())
                 )
                 // .formLogin(Customizer.withDefaults())
