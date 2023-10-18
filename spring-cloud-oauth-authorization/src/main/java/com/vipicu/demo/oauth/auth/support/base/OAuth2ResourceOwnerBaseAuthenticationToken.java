@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.util.Assert;
 

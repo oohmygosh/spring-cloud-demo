@@ -38,7 +38,7 @@ public class IUserDetailServiceImpl implements UserDetailsService {
         else
             roles = Collections.emptyList();
         Collection<GrantedAuthority> authorities = AuthorityUtils
-                .createAuthorityList(roles);
+                .createAuthorityList(roles.toArray(new String[0]));
         return new IUserDetails(user.getUsername(),
                 "{bcrypt}" + user.getPassword(),
                 true,

@@ -2,6 +2,7 @@ package com.vipicu.demo.service.config;
 
 import com.vipicu.demo.service.advice.ApiResponseBodyAdvice;
 import com.vipicu.demo.service.openapi.CustomGenericResponseService;
+import com.vipicu.demo.service.openapi.GlobalOpenApiResponse;
 import org.springdoc.core.parsers.ReturnTypeParser;
 import org.springdoc.core.properties.SpringDocConfigProperties;
 import org.springdoc.core.service.GenericResponseService;
@@ -29,5 +30,10 @@ public class ServiceAutoConfiguration {
     @ConditionalOnBean(ApiResponseBodyAdvice.class)
     GenericResponseService responseBuilder(OperationService operationService, List<ReturnTypeParser> returnTypeParsers, SpringDocConfigProperties springDocConfigProperties, PropertyResolverUtils propertyResolverUtils) {
         return new CustomGenericResponseService(operationService, returnTypeParsers, springDocConfigProperties, propertyResolverUtils);
+    }
+
+    @Bean
+    public GlobalOpenApiResponse globalOpenApiResponse() {
+        return new GlobalOpenApiResponse();
     }
 }

@@ -76,10 +76,12 @@ public abstract class OAuth2ResourceOwnerBaseAuthenticationProvider<T extends OA
                     .authorizationGrant(resourceOwnerBaseAuthentication);
             // @formatter:on
 
-            OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient).principalName(usernamePasswordAuthentication.getName()).authorizationGrantType(AuthorizationGrantType.PASSWORD)
+            OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization
+                    .withRegisteredClient(registeredClient)
+                    .principalName(usernamePasswordAuthentication.getName())
+                    .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                     // 0.4.0 新增的方法
                     .authorizedScopes(authorizedScopes);
-
             // ----- Access token -----
             OAuth2TokenContext tokenContext = tokenContextBuilder.tokenType(OAuth2TokenType.ACCESS_TOKEN).build();
             OAuth2Token generatedAccessToken = this.tokenGenerator.generate(tokenContext);

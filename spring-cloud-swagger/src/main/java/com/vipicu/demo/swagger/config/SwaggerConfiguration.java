@@ -62,4 +62,5 @@ public class SwaggerConfiguration {
         return new Components()
                 .securitySchemes(Map.of("Password Flow", passwordFlowScheme));
     }
+
 }

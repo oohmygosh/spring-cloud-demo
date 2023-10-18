@@ -38,7 +38,6 @@ import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.authorization.*;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -186,7 +185,7 @@ public class SecurityConfig {
      * 已注册客户端存储库
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=openid%20profile&redirect_uri=http://127.0.0.1:8080/authorized">openid&profile</a>
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=openid%20profile&redirect_uri=http://127.0.0.1:8081/webjars/oauth/oauth2.html">openid&profile</a>
-     * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=http://127.0.0.1:8081/webjars/oauth/oauth2.html">openid&profile</a>
+     * <a href="http://127.0.0.1:9000/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=http://127.0.0.1:8080/authorized">openid&profile</a>
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=http://127.0.0.1:9999/webjars/oauth/oauth2.html">openid&profile</a>
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=http://127.0.0.1:8080/doc.html">message.read</a>
      * <a href="http://127.0.0.1:8080/oauth2/authorize?response_type=code&client_id=messaging-client&scope=message.read&redirect_uri=https://www.baidu.com">message.read</a>
