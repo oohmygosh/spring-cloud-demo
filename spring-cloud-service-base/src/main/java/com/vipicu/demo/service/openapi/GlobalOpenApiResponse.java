@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
 import org.springframework.util.ObjectUtils;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -19,34 +21,30 @@ import java.util.Optional;
  */
 @Slf4j
 public class GlobalOpenApiResponse implements GlobalOpenApiCustomizer {
-    @Override
-    public void customise(OpenAPI openApi) {
+
+    private final Map<String, ApiResponse> defaultApiResponses = new HashMap<>() {{
         Schema<ApiResult<String>> schema = new Schema<>();
         schema.set$ref("#/components/schemas/ApiResultString");
         MediaType mediaType = new MediaType().schema(schema);
+        Content content = new Content().addMediaType("*/*", mediaType);
+        put("200",new ApiResponse().description("OK").content(content));
+        put("401",new ApiResponse().description("UNAUTHORIZED").content(content));
+        put("500",new ApiResponse().description("SERVER_ERROR").content(content));
+    }};
+
+    @Override
+    public void customise(OpenAPI openApi) {
         openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations().forEach(item -> {
             ApiResponses responses = Optional.ofNullable(item.getResponses()).orElseGet(() -> {
                 ApiResponses apiResponses = new ApiResponses();
                 item.responses(apiResponses);
                 return item.getResponses();
             });
-            Content content = new Content().addMediaType("*/*", mediaType);
-            ApiResponse unauthorized = responses.get("401");
-            if (ObjectUtils.isEmpty(unauthorized)) {
-                responses.addApiResponse("401", new ApiResponse().description("未授权")
-                        .content(content));
-            }
-            ApiResponse success = responses.get("200");
-            if (ObjectUtils.isEmpty(success)) {
-                responses.addApiResponse("200", new ApiResponse().description("请求成功")
-                        .content(content));
-            }
-            ApiResponse error = responses.get("500");
-            if (ObjectUtils.isEmpty(error)) {
-                responses.addApiResponse("500", new ApiResponse().description("服务端异常")
-                        .content(content));
-            }
-
+            defaultApiResponses.forEach((k, v) -> {
+                if (ObjectUtils.isEmpty(responses.get(k))) {
+                    responses.addApiResponse(k, v);
+                }
+            });
         }));
     }
 

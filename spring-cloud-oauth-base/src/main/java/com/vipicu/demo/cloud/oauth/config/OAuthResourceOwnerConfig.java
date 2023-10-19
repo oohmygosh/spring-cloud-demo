@@ -21,8 +21,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
+import org.springframework.security.oauth2.server.resource.introspection.SpringOpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
@@ -43,10 +48,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class OAuthResourceOwnerConfig {
 
-    /**
-     * security配置
-     */
-    private final SecurityProperties securityProperties;
 
     /**
      * 默认忽略url
@@ -60,6 +61,7 @@ public class OAuthResourceOwnerConfig {
             "/webjars/**"};
 
 
+    private final OpaqueTokenIntrospector opaqueTokenIntrospector;
     @Bean
     @ConditionalOnMissingBean
     public SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration(){
@@ -67,8 +69,13 @@ public class OAuthResourceOwnerConfig {
     }
 
     @Bean
-    public SecurityFilterChain resourceSecurityFilterChain(HttpSecurity http, SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration) throws Exception {
+    public SecurityFilterChain resourceSecurityFilterChain(HttpSecurity http,
+                                                           SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration,
+                                                           JwtDecoder jwtDecoder
+    ) throws Exception {
         http.apply(securityCustomExtensionConfiguration);
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new JwtGrantedAuthoritiesConverter());
         return http
                 // 所有请求需要验证
                 .authorizeHttpRequests(authorize ->
@@ -77,10 +84,10 @@ public class OAuthResourceOwnerConfig {
                                 .authenticated()
                 )
                 .oauth2ResourceServer(resource -> resource
-                        .jwt(jwt -> jwt.decoder(jwtDecoder(jwkSource())))
+                        .opaqueToken(token -> token.introspector(opaqueTokenIntrospector))
+                        // .jwt(jwt -> jwt.decoder(jwtDecoder).jwtAuthenticationConverter(jwtAuthenticationConverter))
                         .bearerTokenResolver(bearerTokenResolver())
                 )
-                // .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
@@ -99,32 +106,4 @@ public class OAuthResourceOwnerConfig {
         return bearerTokenResolver;
     }
 
-    @Bean
-    @SneakyThrows
-    @ConditionalOnMissingBean
-    public JWKSource<SecurityContext> jwkSource() {
-        RSAPublicKey publicKey = JwtSecretUtils.readReaPublicKey(securityProperties.getPublicKey().getBytes(StandardCharsets.UTF_8));
-        RSAKey rsaKey = new RSAKey.Builder(publicKey)
-                .keyID(JwtSecretUtils.KEY_ID)
-                .keyID("f2d4da56-849e-404b-993b-1d966db67237")
-                .build();
-        JWKSet jwkSet = new JWKSet(rsaKey);
-        return new ImmutableJWKSet<>(jwkSet);
-    }
-
-    @Bean
-    public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
-        Set<JWSAlgorithm> jwsAlgorithm = new HashSet<>();
-        jwsAlgorithm.addAll(JWSAlgorithm.Family.RSA);
-        jwsAlgorithm.addAll(JWSAlgorithm.Family.EC);
-        jwsAlgorithm.addAll(JWSAlgorithm.Family.HMAC_SHA);
-        ConfigurableJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
-        JWSKeySelector<SecurityContext> jwsKeySelector =
-                new JWSVerificationKeySelector<>(jwsAlgorithm, jwkSource);
-        jwtProcessor.setJWSKeySelector(jwsKeySelector);
-        // Override the default Nimbus claims set verifier as NimbusJwtDecoder handles it instead
-        jwtProcessor.setJWTClaimsSetVerifier((claims, context) -> {
-        });
-        return new NimbusJwtDecoder(jwtProcessor);
-    }
 }

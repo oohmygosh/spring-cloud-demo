@@ -3,6 +3,7 @@ package com.vipicu.demo.oauth.auth.support.handler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.core.Authentication;
@@ -54,6 +55,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         // 无状态 注意删除 context 上下文的信息
         SecurityContextHolder.clearContext();
-        this.accessTokenHttpResponseConverter.write(accessTokenResponse, null, httpResponse);
+        this.accessTokenHttpResponseConverter.write(accessTokenResponse, MediaType.APPLICATION_JSON, httpResponse);
     }
 }

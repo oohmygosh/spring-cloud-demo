@@ -57,7 +57,7 @@ public class SecurityOpenApiCustomizer implements GlobalOpenApiCustomizer {
                                         .operationId("Oauth2刷新Token")
                                         .parameters(
                                                 List.of(
-                                                        new Parameter().name("refresh_token").schema(new StringSchema()).description("刷新Token"),
+                                                        new Parameter().name("refresh_token").required(true).schema(new StringSchema()).description("刷新Token"),
                                                         authorization
                                                 )
                                         )))

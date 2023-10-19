@@ -151,9 +151,6 @@ public class SecurityConfig {
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                         )
                 )
-                // Accept access tokens for User Info and/or Client Registration
-                .oauth2ResourceServer((resourceServer) -> resourceServer
-                        .jwt(Customizer.withDefaults()))
                 // 跨越配置
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .apply(authorizationServerConfigurer.authorizationService(jdbcOAuth2AuthorizationService))
