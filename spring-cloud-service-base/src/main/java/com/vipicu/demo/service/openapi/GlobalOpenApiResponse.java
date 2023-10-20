@@ -28,7 +28,8 @@ public class GlobalOpenApiResponse implements GlobalOpenApiCustomizer {
         MediaType mediaType = new MediaType().schema(schema);
         Content content = new Content().addMediaType("*/*", mediaType);
         put("200",new ApiResponse().description("OK").content(content));
-        put("401",new ApiResponse().description("UNAUTHORIZED").content(content));
+        put("401",new ApiResponse().description("INVALID_AUTHENTICATION").content(content));
+        put("403",new ApiResponse().description("UNAUTHORIZED").content(content));
         put("500",new ApiResponse().description("SERVER_ERROR").content(content));
     }};
 

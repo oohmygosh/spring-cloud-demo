@@ -1,41 +1,19 @@
 package com.vipicu.demo.cloud.oauth.config;
 
 
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
-import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.JWSKeySelector;
-import com.nimbusds.jose.proc.JWSVerificationKeySelector;
-import com.nimbusds.jose.proc.SecurityContext;
-import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
-import com.nimbusds.jwt.proc.DefaultJWTProcessor;
-import com.vipicu.demo.cloud.oauth.utils.JwtSecretUtils;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
-import org.springframework.security.oauth2.server.resource.introspection.SpringOpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.nio.charset.StandardCharsets;
-import java.security.interfaces.RSAPublicKey;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Oauth资源所有者配置
@@ -45,6 +23,7 @@ import java.util.Set;
  */
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class OAuthResourceOwnerConfig {
 
@@ -64,18 +43,22 @@ public class OAuthResourceOwnerConfig {
     private final OpaqueTokenIntrospector opaqueTokenIntrospector;
     @Bean
     @ConditionalOnMissingBean
-    public SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration(){
-        return new SecurityCustomExtensionConfiguration();
+    public CustomExtensionConfigurer securityCustomExtensionConfiguration(){
+        return new CustomExtensionConfigurer() {
+            @Override
+            public void init(HttpSecurity builder) throws Exception {
+                super.init(builder);
+            }
+        };
     }
 
     @Bean
     public SecurityFilterChain resourceSecurityFilterChain(HttpSecurity http,
-                                                           SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration,
-                                                           JwtDecoder jwtDecoder
+                                                           CustomExtensionConfigurer securityCustomExtensionConfiguration
     ) throws Exception {
         http.apply(securityCustomExtensionConfiguration);
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new JwtGrantedAuthoritiesConverter());
+        // JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        // jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new JwtGrantedAuthoritiesConverter());
         return http
                 // 所有请求需要验证
                 .authorizeHttpRequests(authorize ->

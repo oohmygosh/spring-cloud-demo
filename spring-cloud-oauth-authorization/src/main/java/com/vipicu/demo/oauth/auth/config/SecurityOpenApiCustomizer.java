@@ -35,7 +35,8 @@ public class SecurityOpenApiCustomizer implements GlobalOpenApiCustomizer {
                                                         scope,
                                                         authorization
                                                 )
-                                        ))
+                                        )
+                        )
                 )
                 .path("/oauth2/token?grant_type=authorization_code", new PathItem()
                         .post(
