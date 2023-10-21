@@ -1,38 +1,19 @@
 package com.vipicu.demo.cloud.oauth.config;
 
 
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
-import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.JWSKeySelector;
-import com.nimbusds.jose.proc.JWSVerificationKeySelector;
-import com.nimbusds.jose.proc.SecurityContext;
-import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
-import com.nimbusds.jwt.proc.DefaultJWTProcessor;
-import com.vipicu.demo.cloud.oauth.utils.JwtSecretUtils;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.nio.charset.StandardCharsets;
-import java.security.interfaces.RSAPublicKey;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Oauth资源所有者配置
@@ -42,13 +23,10 @@ import java.util.Set;
  */
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class OAuthResourceOwnerConfig {
 
-    /**
-     * security配置
-     */
-    private final SecurityProperties securityProperties;
 
     /**
      * 默认忽略url
@@ -62,19 +40,25 @@ public class OAuthResourceOwnerConfig {
             "/webjars/**"};
 
 
+    private final OpaqueTokenIntrospector opaqueTokenIntrospector;
     @Bean
     @ConditionalOnMissingBean
-    public SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration(){
-        return new SecurityCustomExtensionConfiguration();
+    public CustomExtensionConfigurer securityCustomExtensionConfiguration(){
+        return new CustomExtensionConfigurer() {
+            @Override
+            public void init(HttpSecurity builder) throws Exception {
+                super.init(builder);
+            }
+        };
     }
 
     @Bean
-    public SecurityFilterChain resourceSecurityFilterChain(HttpSecurity http, SecurityCustomExtensionConfiguration securityCustomExtensionConfiguration) throws Exception {
+    public SecurityFilterChain resourceSecurityFilterChain(HttpSecurity http,
+                                                           CustomExtensionConfigurer securityCustomExtensionConfiguration
+    ) throws Exception {
         http.apply(securityCustomExtensionConfiguration);
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        JwtGrantedAuthoritiesConverter authoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        authoritiesConverter.setAuthoritiesClaimName("user_info");
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(authoritiesConverter);
+        // JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        // jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new JwtGrantedAuthoritiesConverter());
         return http
                 // 所有请求需要验证
                 .authorizeHttpRequests(authorize ->
@@ -83,10 +67,10 @@ public class OAuthResourceOwnerConfig {
                                 .authenticated()
                 )
                 .oauth2ResourceServer(resource -> resource
-                        .jwt(jwt -> jwt.decoder(jwtDecoder(jwkSource())).jwtAuthenticationConverter(jwtAuthenticationConverter))
+                        .opaqueToken(token -> token.introspector(opaqueTokenIntrospector))
+                        // .jwt(jwt -> jwt.decoder(jwtDecoder).jwtAuthenticationConverter(jwtAuthenticationConverter))
                         .bearerTokenResolver(bearerTokenResolver())
                 )
-                // .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
@@ -105,32 +89,4 @@ public class OAuthResourceOwnerConfig {
         return bearerTokenResolver;
     }
 
-    @Bean
-    @SneakyThrows
-    @ConditionalOnMissingBean
-    public JWKSource<SecurityContext> jwkSource() {
-        RSAPublicKey publicKey = JwtSecretUtils.readReaPublicKey(securityProperties.getPublicKey().getBytes(StandardCharsets.UTF_8));
-        RSAKey rsaKey = new RSAKey.Builder(publicKey)
-                .keyID(JwtSecretUtils.KEY_ID)
-                .keyID("f2d4da56-849e-404b-993b-1d966db67237")
-                .build();
-        JWKSet jwkSet = new JWKSet(rsaKey);
-        return new ImmutableJWKSet<>(jwkSet);
-    }
-
-    @Bean
-    public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
-        Set<JWSAlgorithm> jwsAlgorithm = new HashSet<>();
-        jwsAlgorithm.addAll(JWSAlgorithm.Family.RSA);
-        jwsAlgorithm.addAll(JWSAlgorithm.Family.EC);
-        jwsAlgorithm.addAll(JWSAlgorithm.Family.HMAC_SHA);
-        ConfigurableJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
-        JWSKeySelector<SecurityContext> jwsKeySelector =
-                new JWSVerificationKeySelector<>(jwsAlgorithm, jwkSource);
-        jwtProcessor.setJWSKeySelector(jwsKeySelector);
-        // Override the default Nimbus claims set verifier as NimbusJwtDecoder handles it instead
-        jwtProcessor.setJWTClaimsSetVerifier((claims, context) -> {
-        });
-        return new NimbusJwtDecoder(jwtProcessor);
-    }
 }

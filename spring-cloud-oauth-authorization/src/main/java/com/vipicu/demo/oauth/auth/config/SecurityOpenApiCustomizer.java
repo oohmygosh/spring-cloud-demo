@@ -35,7 +35,8 @@ public class SecurityOpenApiCustomizer implements GlobalOpenApiCustomizer {
                                                         scope,
                                                         authorization
                                                 )
-                                        ))
+                                        )
+                        )
                 )
                 .path("/oauth2/token?grant_type=authorization_code", new PathItem()
                         .post(
@@ -57,7 +58,7 @@ public class SecurityOpenApiCustomizer implements GlobalOpenApiCustomizer {
                                         .operationId("Oauth2刷新Token")
                                         .parameters(
                                                 List.of(
-                                                        new Parameter().name("refresh_token").schema(new StringSchema()).description("刷新Token"),
+                                                        new Parameter().name("refresh_token").required(true).schema(new StringSchema()).description("刷新Token"),
                                                         authorization
                                                 )
                                         )))

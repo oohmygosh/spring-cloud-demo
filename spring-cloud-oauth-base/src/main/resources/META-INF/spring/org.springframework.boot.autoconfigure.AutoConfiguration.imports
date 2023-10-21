@@ -1,3 +1,4 @@
 com.vipicu.demo.cloud.oauth.config.OAuthResourceOwnerConfig
+com.vipicu.demo.cloud.oauth.config.OAuthResourceAutoConfig
 com.vipicu.demo.cloud.oauth.config.SecurityProperties
 com.vipicu.demo.cloud.oauth.feign.FeignClientAutoConfiguration

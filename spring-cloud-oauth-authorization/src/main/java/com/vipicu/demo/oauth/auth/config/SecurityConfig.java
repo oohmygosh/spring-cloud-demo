@@ -36,7 +36,6 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
-import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.server.authorization.*;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
@@ -46,7 +45,9 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
-import org.springframework.security.oauth2.server.authorization.token.*;
+import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.security.oauth2.server.authorization.web.authentication.*;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
@@ -151,9 +152,6 @@ public class SecurityConfig {
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                         )
                 )
-                // Accept access tokens for User Info and/or Client Registration
-                .oauth2ResourceServer((resourceServer) -> resourceServer
-                        .jwt(Customizer.withDefaults()))
                 // 跨越配置
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .apply(authorizationServerConfigurer.authorizationService(jdbcOAuth2AuthorizationService))
@@ -246,11 +244,9 @@ public class SecurityConfig {
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
         return context -> {
-            JwsHeader.Builder headers = context.getJwsHeader();
+            // JwsHeader.Builder headers = context.getJwsHeader();
             JwtClaimsSet.Builder claims = context.getClaims();
             if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
-                // Customize headers/claims for access_token
-                headers.header("customerHeader", "这是一个自定义header");
                 claims.claim("user_info", context.getPrincipal().getPrincipal());
             }
         };
