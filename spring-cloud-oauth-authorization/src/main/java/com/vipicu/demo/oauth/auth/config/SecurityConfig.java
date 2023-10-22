@@ -9,8 +9,8 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.vipicu.demo.cloud.oauth.config.SecurityProperties;
 import com.vipicu.demo.cloud.oauth.utils.JwtSecretUtils;
-import com.vipicu.demo.oauth.auth.entity.IUserDetails;
-import com.vipicu.demo.oauth.auth.entity.IUserDetailsMixin;
+import com.vipicu.demo.cloud.oauth.entity.IUserDetails;
+import com.vipicu.demo.cloud.oauth.entity.IUserDetailsMixin;
 import com.vipicu.demo.oauth.auth.support.core.CustomAuthorizationGrantType;
 import com.vipicu.demo.oauth.auth.support.handler.CustomAuthenticationFailureHandler;
 import com.vipicu.demo.oauth.auth.support.handler.CustomAuthenticationSuccessHandler;
@@ -247,7 +247,8 @@ public class SecurityConfig {
             // JwsHeader.Builder headers = context.getJwsHeader();
             JwtClaimsSet.Builder claims = context.getClaims();
             if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
-                claims.claim("user_info", context.getPrincipal().getPrincipal());
+                // IUserDetails userDetails = (IUserDetails) context.getPrincipal().getPrincipal();
+                // claims.claim("authorities", userDetails.getAuthorities());
             }
         };
     }

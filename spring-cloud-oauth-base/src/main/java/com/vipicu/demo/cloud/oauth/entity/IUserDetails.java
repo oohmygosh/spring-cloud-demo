@@ -1,4 +1,4 @@
-package com.vipicu.demo.oauth.auth.entity;
+package com.vipicu.demo.cloud.oauth.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

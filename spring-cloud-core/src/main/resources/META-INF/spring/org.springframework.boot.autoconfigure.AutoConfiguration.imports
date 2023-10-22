@@ -1,0 +1,2 @@
+com.vipicu.demo.cloud.core.config.RedisTemplateConfiguration
+com.vipicu.demo.cloud.core.config.RestTemplateConfiguration

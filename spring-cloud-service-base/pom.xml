@@ -21,6 +21,11 @@
     <dependencies>
         <dependency>
             <groupId>com.vipicu.demo.cloud</groupId>
+            <artifactId>spring-cloud-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vipicu.demo.cloud</groupId>
             <artifactId>spring-cloud-swagger</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

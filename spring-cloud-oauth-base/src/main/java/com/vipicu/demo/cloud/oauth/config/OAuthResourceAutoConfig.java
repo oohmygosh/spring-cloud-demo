@@ -14,6 +14,7 @@ import com.vipicu.demo.cloud.oauth.utils.JwtSecretUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -39,8 +40,8 @@ public class OAuthResourceAutoConfig {
     private final SecurityProperties securityProperties;
 
     @Bean
-    public OpaqueTokenIntrospector customOpaqueTokenIntrospector(JwtDecoder jwtDecoder){
-        return new TokenOpaqueTokenIntrospection(jwtDecoder);
+    public OpaqueTokenIntrospector customOpaqueTokenIntrospector(JwtDecoder jwtDecoder, CacheManager cacheManager){
+        return new TokenOpaqueTokenIntrospection(jwtDecoder, cacheManager);
     }
 
 

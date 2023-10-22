@@ -10,36 +10,39 @@
     </parent>
 
     <groupId>com.vipicu.demo.cloud</groupId>
-    <artifactId>spring-cloud-oauth-base</artifactId>
+    <artifactId>spring-cloud-core</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>20</maven.compiler.source>
+        <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.vipicu.demo.cloud</groupId>
-            <artifactId>spring-cloud-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        <!--redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-core</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!--server-api-->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
+        <!--hibernate-validator-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <!--json模块-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

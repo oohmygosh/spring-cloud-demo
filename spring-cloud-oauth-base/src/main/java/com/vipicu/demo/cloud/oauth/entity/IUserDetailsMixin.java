@@ -1,4 +1,4 @@
-package com.vipicu.demo.oauth.auth.entity;
+package com.vipicu.demo.cloud.oauth.entity;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
