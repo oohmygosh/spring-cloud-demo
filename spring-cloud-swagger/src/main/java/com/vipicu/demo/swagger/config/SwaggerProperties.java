@@ -19,7 +19,7 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "swagger")
 public class SwaggerProperties {
 
-    private Oauth2 oauth2;
+    private OAuth2 oauth2;
     private Info info;
 
     @Getter
@@ -45,7 +45,7 @@ public class SwaggerProperties {
 
     @Getter
     @Setter
-    static class Oauth2 {
+    static class OAuth2 {
         /**
          * 授权url
          */

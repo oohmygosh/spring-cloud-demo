@@ -46,7 +46,7 @@ public class SwaggerConfiguration {
      */
     private Components oauth2Component() {
         Scopes scopes = new Scopes();
-        SwaggerProperties.Oauth2 oauth2 = swaggerProperties.getOauth2();
+        SwaggerProperties.OAuth2 oauth2 = swaggerProperties.getOauth2();
         oauth2.getScopes().forEach(scopes::addString);
         SecurityScheme passwordFlowScheme = new SecurityScheme()
                 .type(SecurityScheme.Type.OAUTH2)

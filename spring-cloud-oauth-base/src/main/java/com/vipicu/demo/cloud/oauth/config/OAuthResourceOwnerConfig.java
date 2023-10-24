@@ -39,7 +39,6 @@ public class OAuthResourceOwnerConfig {
             "/doc.html",
             "/webjars/**"};
 
-
     private final OpaqueTokenIntrospector opaqueTokenIntrospector;
     @Bean
     @ConditionalOnMissingBean
