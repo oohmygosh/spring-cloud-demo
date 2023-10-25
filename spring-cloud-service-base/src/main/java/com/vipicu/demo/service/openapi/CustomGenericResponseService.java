@@ -1,7 +1,7 @@
 package com.vipicu.demo.service.openapi;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.vipicu.demo.service.entity.ApiResult;
+import com.vipicu.demo.cloud.core.entity.ApiResult;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Content;
 import lombok.extern.slf4j.Slf4j;

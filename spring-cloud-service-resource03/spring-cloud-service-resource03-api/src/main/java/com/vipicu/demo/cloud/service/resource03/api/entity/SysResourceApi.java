@@ -1,35 +1,33 @@
 package com.vipicu.demo.cloud.service.resource03.api.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.vipicu.demo.cloud.core.entity.SuperEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serial;
-import java.io.Serializable;
-import lombok.Data;
+/**
+ * 系统资源接口
+ *
+ * @author oohmygosh
+ * @since 2022-02-26
+ */
+@Getter
+@Setter
+@Schema(name = "SysResourceApi", description = "系统资源")
+public class SysResourceApi extends SuperEntity {
 
-@Schema
-@Data
-@TableName(value = "main.sys_resource_api")
-public class SysResourceApi implements Serializable {
-    @TableField(value = "id")
-    @Schema(description="")
-    private Integer id;
+    @Schema(description = "资源ID")
+    @PositiveOrZero
+    private Long resourceId;
 
-    @TableField(value = "resource_id")
-    @Schema(description="")
-    private Integer resourceId;
-
-    @TableField(value = "url")
-    @Schema(description="")
+    @Schema(description = "接口地址")
+    @Size(max = 255)
     private String url;
 
-    @TableField(value = "code")
-    @Schema(description="")
+    @Schema(description = "编码")
+    @Size(max = 100)
     private String code;
 
-    @Serial
-    private static final long serialVersionUID = 1L;
 }

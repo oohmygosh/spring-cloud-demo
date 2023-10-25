@@ -1,66 +1,42 @@
 package com.vipicu.demo.cloud.service.resource03.api.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.OrderBy;
+import com.vipicu.demo.cloud.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Date;
+/**
+ * 系统角色
+ *
+ * @author oohmygosh
+ * @since 2021-11-03
+ */
+@Getter
+@Setter
+@Schema(name = "SysRole", description = "系统角色")
+public class SysRole extends BaseEntity {
 
-@Schema
-@Data
-@TableName(value = "main.sys_role")
-public class SysRole implements Serializable {
-    @TableField(value = "id")
-    @Schema(description="")
-    private Integer id;
-
-    @TableField(value = "create_id")
-    @Schema(description="")
-    private Integer createId;
-
-    @TableField(value = "create_by")
-    @Schema(description="")
-    private String createBy;
-
-    @TableField(value = "create_time")
-    @Schema(description="")
-    private Date createTime;
-
-    @TableField(value = "update_by")
-    @Schema(description="")
-    private String updateBy;
-
-    @TableField(value = "update_time")
-    @Schema(description="")
-    private Date updateTime;
-
-    @TableField(value = "deleted")
-    @Schema(description="")
-    private Integer deleted;
-
-    @TableField(value = "\"name\"")
-    @Schema(description="")
+    @Schema(description = "名称")
+    @Size(max = 30)
     private String name;
 
-    @TableField(value = "\"alias\"")
-    @Schema(description="")
+    @Schema(description = "别名")
+    @Size(max = 30)
     private String alias;
 
-    @TableField(value = "remark")
-    @Schema(description="")
+    @Schema(description = "备注")
+    @Size(max = 255)
     private String remark;
 
-    @TableField(value = "\"status\"")
-    @Schema(description="")
+    @Schema(description = "状态 0、禁用 1、正常")
     private Integer status;
 
-    @TableField(value = "sort")
-    @Schema(description="")
+    @OrderBy
+    @Schema(description = "排序")
+    @PositiveOrZero
     private Integer sort;
 
-    @Serial
-    private static final long serialVersionUID = 1L;
 }

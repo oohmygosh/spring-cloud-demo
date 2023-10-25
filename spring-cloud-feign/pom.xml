@@ -12,6 +12,7 @@
     <groupId>com.vipicu.demo.cloud</groupId>
     <artifactId>spring-cloud-feign</artifactId>
 
+
     <dependencies>
         <!--feign 依赖-->
         <dependency>

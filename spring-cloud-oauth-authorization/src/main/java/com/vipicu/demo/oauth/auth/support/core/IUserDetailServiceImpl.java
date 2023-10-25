@@ -5,7 +5,7 @@ import com.vipicu.demo.cloud.db.h2.entity.SysRole;
 import com.vipicu.demo.cloud.db.h2.entity.SysUser;
 import com.vipicu.demo.cloud.db.h2.mapper.SysResourceApiMapper;
 import com.vipicu.demo.cloud.db.h2.mapper.SysRoleMapper;
-import com.vipicu.demo.cloud.db.h2.service.ISysUserService;
+import com.vipicu.demo.cloud.db.h2.service.SysUserService;
 import com.vipicu.demo.cloud.oauth.entity.IUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,11 +21,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-@Service
+// @Service
 @AllArgsConstructor
 public class IUserDetailServiceImpl implements UserDetailsService {
 
-    private final ISysUserService usersService;
+    private final SysUserService usersService;
     private final SysRoleMapper roleMapper;
     private final SysResourceApiMapper sysResourceApiMapper;
 

@@ -1,6 +1,6 @@
 package com.vipicu.demo.service.openapi;
 
-import com.vipicu.demo.service.entity.ApiResult;
+import com.vipicu.demo.cloud.core.entity.ApiResult;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;

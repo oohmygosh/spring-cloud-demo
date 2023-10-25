@@ -1,31 +1,28 @@
 package com.vipicu.demo.cloud.service.resource03.api.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.vipicu.demo.cloud.core.entity.SuperEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serial;
-import java.io.Serializable;
-import lombok.Data;
+/**
+ * 系统用户角色
+ *
+ * @author oohmygosh
+ * @since 2021-11-03
+ */
+@Getter
+@Setter
+@Schema(name = "SysUserRole", description = "系统用户角色")
+public class SysUserRole extends SuperEntity {
 
-@Schema
-@Data
-@TableName(value = "main.sys_user_role")
-public class SysUserRole implements Serializable {
-    @TableId(value = "id", type = IdType.INPUT)
-    @Schema(description="")
-    private Integer id;
+    @Schema(description = "用户ID")
+    @PositiveOrZero
+    private Long userId;
 
-    @TableField(value = "user_id")
-    @Schema(description="")
-    private Integer userId;
+    @Schema(description = "角色ID")
+    @PositiveOrZero
+    private Long roleId;
 
-    @TableField(value = "role_id")
-    @Schema(description="")
-    private Integer roleId;
-
-    @Serial
-    private static final long serialVersionUID = 1L;
 }

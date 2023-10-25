@@ -1,4 +1,7 @@
-com.vipicu.demo.cloud.oauth.config.OAuthResourceOwnerConfig
-com.vipicu.demo.cloud.oauth.config.OAuthResourceAutoConfig
+com.vipicu.demo.cloud.oauth.config.OAuthResourceOwnerConfigurer
+com.vipicu.demo.cloud.oauth.config.OAuthResourceAutoConfigurer
 com.vipicu.demo.cloud.oauth.config.SecurityProperties
+com.vipicu.demo.cloud.oauth.config.PermitAllUrlProperties
+com.vipicu.demo.cloud.oauth.components.SecurityInnerAspect
 com.vipicu.demo.cloud.oauth.feign.FeignClientAutoConfiguration
+com.vipicu.demo.cloud.oauth.service.UserDetailService

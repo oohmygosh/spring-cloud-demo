@@ -1,7 +1,7 @@
 package com.vipicu.demo.service.advice;
 
 import com.alibaba.nacos.common.utils.JacksonUtils;
-import com.vipicu.demo.service.entity.ApiResult;
+import com.vipicu.demo.cloud.core.entity.ApiResult;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

@@ -1,96 +1,63 @@
 package com.vipicu.demo.cloud.service.resource03.api.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.vipicu.demo.cloud.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
+/**
+ * 系统用户
+ *
+ * @author oohmygosh
+ * @since 2021-11-03
+ */
+@Getter
+@Setter
+@Schema(name = "SysUser", description = "系统用户")
+public class SysUser extends BaseEntity {
 
-@Schema
-@Data
-@TableName(value = "main.sys_user")
-public class SysUser implements Serializable {
-    @TableId(value = "id", type = IdType.INPUT)
-    @Schema(description="")
-    private Long id;
-
-    @TableField(value = "create_id")
-    @Schema(description="")
-    private Long createId;
-
-    @TableField(value = "create_by")
-    @Schema(description="")
-    private String createBy;
-
-    @TableField(value = "create_time")
-    @Schema(description="")
-    private Date createTime;
-
-    @TableField(value = "update_by")
-    @Schema(description="")
-    private String updateBy;
-
-    @TableField(value = "update_time")
-    @Schema(description="")
-    private Date updateTime;
-
-    @TableField(value = "deleted")
-    @Schema(description="")
-    private Integer deleted;
-
-    @TableField(value = "username")
-    @Schema(description="")
+    @Schema(description = "账号")
+    @Size(max = 20)
     private String username;
 
-    @TableField(value = "\"password\"")
-    @Schema(description="")
+    @Schema(description = "密码")
+    @Size(max = 32)
     private String password;
 
-    @TableField(value = "salt")
-    @Schema(description="")
+    @Schema(description = "随机盐")
     private String salt;
 
-    @TableField(value = "real_name")
-    @Schema(description="")
+    @Schema(description = "真实名称")
+    @Size(max = 100)
     private String realName;
 
-    @TableField(value = "nick_name")
-    @Schema(description="")
+    @Schema(description = "昵称")
+    @Size(max = 20)
     private String nickName;
 
-    @TableField(value = "avatar")
-    @Schema(description="")
+    @Schema(description = "头像")
+    @Size(max = 200)
     private String avatar;
 
-    @TableField(value = "sex")
-    @Schema(description="")
+    @Schema(description = "性别")
     private String sex;
 
-    @TableField(value = "phone")
-    @Schema(description="")
+    @Schema(description = "手机号")
+    @Size(max = 11)
     private String phone;
 
-    @TableField(value = "phone_verified")
-    @Schema(description="")
+    @Schema(description = "手机号是否验证 0、否 1、是")
     private Integer phoneVerified;
 
-    @TableField(value = "email")
-    @Schema(description="")
+    @Schema(description = "邮箱")
+    @Size(max = 100)
     private String email;
 
-    @TableField(value = "email_verified")
-    @Schema(description="")
+    @Schema(description = "邮箱是否验证 0、否 1、是")
     private Integer emailVerified;
 
-    @TableField(value = "\"status\"")
-    @Schema(description="")
+    @Schema(description = "状态 0、禁用 1、正常")
     private Integer status;
 
-    @Serial
-    private static final long serialVersionUID = 1L;
 }

@@ -3,7 +3,7 @@ package com.vipicu.demo.cloud.db.h2.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.vipicu.demo.cloud.db.h2.entity.SysUser;
 import com.vipicu.demo.cloud.db.h2.mapper.SysUserMapper;
-import com.vipicu.demo.cloud.db.h2.service.ISysUserService;
+import com.vipicu.demo.cloud.db.h2.service.SysUserService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Service;
  * @since 2021-11-03
  */
 @Service
-public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
 }
