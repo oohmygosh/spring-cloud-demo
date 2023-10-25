@@ -18,15 +18,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author Lee
  * @since 1.0.0
  */
-public class ApiResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+public interface ApiResponseBodyAdvice extends ResponseBodyAdvice<Object> {
     @Override
-    public boolean supports(final  MethodParameter returnType,
+    default boolean supports(final  MethodParameter returnType,
                             final Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
     }
 
     @Override
-    public Object beforeBodyWrite(final @Nullable Object body,
+    default Object beforeBodyWrite(final @Nullable Object body,
                                   final MethodParameter returnType,
                                   final MediaType selectedContentType,
                                   final Class<? extends HttpMessageConverter<?>> selectedConverterType,

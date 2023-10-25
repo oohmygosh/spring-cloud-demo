@@ -29,6 +29,10 @@ spring:
           uri: lb://spring-cloud-service-resource02
           predicates:
             - Path=/res02/**
+        - id: spring-cloud-service-resource03-app
+          uri: lb://spring-cloud-service-resource03-app
+          predicates:
+            - Path=/res03/**
       discovery:
         locator:
           enabled: true
@@ -54,5 +58,7 @@ knife4j:
           group-name: 资源服务01
         spring-cloud-service-resource02:
           group-name: 资源服务02
+        spring-cloud-service-resource03-app:
+          group-name: 资源服务03
     tags-sorter: order
     operations-sorter: order

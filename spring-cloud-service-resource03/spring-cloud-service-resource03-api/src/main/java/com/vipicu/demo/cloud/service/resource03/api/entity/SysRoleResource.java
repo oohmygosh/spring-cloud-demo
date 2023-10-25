@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.io.Serial;
 import java.io.Serializable;
 import lombok.Data;
 
@@ -24,5 +26,6 @@ public class SysRoleResource implements Serializable {
     @Schema(description="")
     private Integer resourceId;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 }

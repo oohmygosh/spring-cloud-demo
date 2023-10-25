@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice({
         "com.vipicu.demo.cloud.service.resource01"
 })
-public class CustomResponseBodyAdvice extends ApiResponseBodyAdvice {
+public class CustomResponseBodyAdvice implements ApiResponseBodyAdvice {
 }
