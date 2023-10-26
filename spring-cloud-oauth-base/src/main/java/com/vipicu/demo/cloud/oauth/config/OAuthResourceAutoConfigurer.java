@@ -52,7 +52,6 @@ public class OAuthResourceAutoConfigurer {
     public JWKSource<SecurityContext> jwkSource() {
         RSAPublicKey publicKey = JwtSecretUtils.readReaPublicKey(securityProperties.getPublicKey().getBytes(StandardCharsets.UTF_8));
         RSAKey rsaKey = new RSAKey.Builder(publicKey)
-                .keyID(JwtSecretUtils.KEY_ID)
                 .keyID("f2d4da56-849e-404b-993b-1d966db67237")
                 .build();
         JWKSet jwkSet = new JWKSet(rsaKey);
