@@ -1,9 +1,7 @@
 package com.vipicu.demo.cloud.service.resource01.controller;
 
-import com.vipicu.demo.cloud.db.h2.entity.SysUser;
-import com.vipicu.demo.cloud.db.h2.service.SysUserService;
-import com.vipicu.demo.cloud.service.resource01.feign.RemoteTestService;
 import com.vipicu.demo.cloud.core.entity.ApiResult;
+import com.vipicu.demo.cloud.service.resource01.feign.RemoteTestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @AllArgsConstructor
 @Tag(name = "用户管理")
@@ -23,14 +19,6 @@ import java.util.List;
 public class UserController {
 
     private final RemoteTestService testService;
-    private final SysUserService userService;
-
-    @GetMapping("/all")
-    @Operation(summary = "获取所有用户")
-    public List<SysUser> fetchAllUsers() {
-        return userService.list();
-    }
-
     @GetMapping
     @Operation(summary = "获取当前用户")
     public Authentication fetchCurUser() {

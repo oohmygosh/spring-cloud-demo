@@ -1,7 +1,7 @@
 package com.vipicu.demo.cloud.service.resource01.controller;
 
-import com.vipicu.demo.cloud.db.h2.entity.Authorities;
-import com.vipicu.demo.cloud.db.h2.service.AuthoritiesService;
+import com.vipicu.demo.cloud.db.sqlite.entity.Authorities;
+import com.vipicu.demo.cloud.db.sqlite.service.AuthoritiesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

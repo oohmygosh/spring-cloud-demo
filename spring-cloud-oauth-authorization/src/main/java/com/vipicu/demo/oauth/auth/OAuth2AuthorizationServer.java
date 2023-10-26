@@ -1,6 +1,6 @@
 package com.vipicu.demo.oauth.auth;
 
-import com.vipicu.demo.cloud.db.h2.config.EnableDefaultDataSource;
+import com.vipicu.demo.cloud.db.sqlite.config.EnableDefaultDataSource;
 import com.vipicu.demo.cloud.feign.config.annotations.EnableMakerFeignClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

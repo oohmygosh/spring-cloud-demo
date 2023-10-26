@@ -50,7 +50,6 @@ knife4j:
       enabled: true
       excluded-services:
         - @artifactId@
-#        - ${spring.cloud.gateway.routes[0].id}
       service-config:
         spring-cloud-oauth-authorization:
           group-name: oauth2服务

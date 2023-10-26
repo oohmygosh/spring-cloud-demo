@@ -1,7 +1,7 @@
 package com.vipicu.demo.cloud.service.resource01.controller;
 
-import com.vipicu.demo.cloud.db.h2.entity.Oauth2Authorization;
-import com.vipicu.demo.cloud.db.h2.service.Oauth2AuthorizationService;
+import com.vipicu.demo.cloud.db.sqlite.entity.Oauth2Authorization;
+import com.vipicu.demo.cloud.db.sqlite.service.Oauth2AuthorizationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
