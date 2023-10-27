@@ -1,5 +1,6 @@
 package com.vipicu.demo.cloud.oauth.service;
 
+import com.vipicu.demo.cloud.core.annotations.ICacheable;
 import com.vipicu.demo.cloud.core.constant.CacheConstants;
 import com.vipicu.demo.cloud.core.constant.SecurityConstants;
 import com.vipicu.demo.cloud.core.entity.ApiResult;
@@ -23,6 +24,7 @@ public class UserDetailService implements UserDetailsService {
     private final RemoteUserService userService;
 
     @Override
+    // @ICacheable(value = CacheConstants.USER_DETAILS, key = "#username", expiredTimeSecond = 90)
     @Cacheable(value = CacheConstants.USER_DETAILS, key = "#username")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ApiResult<UserInfo> userInfoApiResult = userService.fetchUserInfo(username, SecurityConstants.FROM_IN);
