@@ -1,7 +1,6 @@
 package com.vipicu.demo.cloud.service.resource01;
 
 import com.vipicu.demo.cloud.db.sqlite.config.DefaultDataSourceAutoConfig;
-import com.vipicu.demo.cloud.db.sqlite.config.EnableDefaultDataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;

@@ -3,9 +3,11 @@ package com.vipicu.demo.oauth.auth.support.base;
 import com.vipicu.demo.oauth.auth.utils.OAuth2ErrorCodesExpand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
@@ -37,12 +39,15 @@ public abstract class OAuth2ResourceOwnerBaseAuthenticationProvider<T extends OA
 
     private final AuthenticationManager authenticationManager;
 
+    private final MessageSourceAccessor messages;
+
     public OAuth2ResourceOwnerBaseAuthenticationProvider(AuthenticationManager authenticationManager, OAuth2AuthorizationService authorizationService, OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator) {
         Assert.notNull(authorizationService, "authorizationService cannot be null");
         Assert.notNull(tokenGenerator, "tokenGenerator cannot be null");
         this.authenticationManager = authenticationManager;
         this.authorizationService = authorizationService;
         this.tokenGenerator = tokenGenerator;
+        this.messages = SpringSecurityMessageSource.getAccessor();
     }
 
     @Override
@@ -198,19 +203,26 @@ public abstract class OAuth2ResourceOwnerBaseAuthenticationProvider<T extends OA
             return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.USERNAME_NOT_FOUND, String.format("Username %s not found", authentication.getPrincipal()), ""));
         }
         if (authenticationException instanceof BadCredentialsException) {
-            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.BAD_CREDENTIALS, "Bad credentials", ""));
+            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.BAD_CREDENTIALS, this.messages.getMessage(
+                    "AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"), ""));
         }
         if (authenticationException instanceof LockedException) {
-            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.USER_LOCKED, "User account is locked", ""));
+            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.USER_LOCKED,  this.messages
+                    .getMessage("AbstractUserDetailsAuthenticationProvider.locked", "User account is locked"), ""));
         }
         if (authenticationException instanceof DisabledException) {
-            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.USER_DISABLE, "User is disabled", ""));
+            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.USER_DISABLE,
+                    this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.disabled", "User is disabled"),
+                    ""));
         }
         if (authenticationException instanceof AccountExpiredException) {
-            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.USER_EXPIRED, "User account has expired", ""));
+            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.USER_EXPIRED,  this.messages
+                    .getMessage("AbstractUserDetailsAuthenticationProvider.expired", "User account has expired"), ""));
         }
         if (authenticationException instanceof CredentialsExpiredException) {
-            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.CREDENTIALS_EXPIRED, "User credentials have expired", ""));
+            return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodesExpand.CREDENTIALS_EXPIRED, this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.credentialsExpired",
+                    "User credentials have expired"),
+                    ""));
         }
         // if (authenticationException instanceof ScopeException) {
         //     return new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_SCOPE,

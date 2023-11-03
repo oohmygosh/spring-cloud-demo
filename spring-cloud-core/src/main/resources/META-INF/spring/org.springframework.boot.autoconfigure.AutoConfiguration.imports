@@ -1,3 +1,4 @@
 com.vipicu.demo.cloud.core.config.RedisTemplateConfiguration
 com.vipicu.demo.cloud.core.config.RestTemplateConfiguration
 com.vipicu.demo.cloud.core.config.SpringCacheManagerConfiguration
+com.vipicu.demo.cloud.core.utils.SpringHelper
