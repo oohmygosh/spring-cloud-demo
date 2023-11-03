@@ -4,7 +4,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,9 +14,12 @@ import org.springframework.security.oauth2.core.http.converter.OAuth2AccessToken
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationToken;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,7 +30,7 @@ import java.util.Map;
  */
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final HttpMessageConverter<OAuth2AccessTokenResponse> accessTokenHttpResponseConverter = new OAuth2AccessTokenResponseHttpMessageConverter();
+    private final OAuth2AccessTokenResponseHttpMessageConverter accessTokenHttpResponseConverter = new OAuth2AccessTokenResponseHttpMessageConverter();
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -52,9 +54,35 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
         OAuth2AccessTokenResponse accessTokenResponse = builder.build();
         ServletServerHttpResponse httpResponse = new ServletServerHttpResponse(response);
-
         // 无状态 注意删除 context 上下文的信息
         SecurityContextHolder.clearContext();
-        this.accessTokenHttpResponseConverter.write(accessTokenResponse, MediaType.APPLICATION_JSON, httpResponse);
+        accessTokenHttpResponseConverter.setAccessTokenResponseParametersConverter(this::convert);
+        accessTokenHttpResponseConverter.write(accessTokenResponse, MediaType.APPLICATION_JSON, httpResponse);
     }
+
+
+    public Map<String, Object> convert(OAuth2AccessTokenResponse tokenResponse) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("accessToken", tokenResponse.getAccessToken().getTokenValue());
+        parameters.put("tokenType", tokenResponse.getAccessToken().getTokenType().getValue());
+        parameters.put("expiresIn", getExpiresIn(tokenResponse));
+        if (!CollectionUtils.isEmpty(tokenResponse.getAccessToken().getScopes())) {
+            parameters.put("scope", StringUtils.collectionToDelimitedString(tokenResponse.getAccessToken().getScopes(), " "));
+        }
+
+        if (tokenResponse.getRefreshToken() != null) {
+            parameters.put("refreshToken", tokenResponse.getRefreshToken().getTokenValue());
+        }
+
+        if (!CollectionUtils.isEmpty(tokenResponse.getAdditionalParameters())) {
+            parameters.putAll(tokenResponse.getAdditionalParameters());
+        }
+
+        return parameters;
+    }
+
+    private static long getExpiresIn(OAuth2AccessTokenResponse tokenResponse) {
+        return tokenResponse.getAccessToken().getExpiresAt() != null ? ChronoUnit.SECONDS.between(Instant.now(), tokenResponse.getAccessToken().getExpiresAt()) : -1L;
+    }
+
 }
