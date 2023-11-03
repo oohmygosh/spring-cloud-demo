@@ -4,4 +4,4 @@ com.vipicu.demo.cloud.oauth.config.SecurityProperties
 com.vipicu.demo.cloud.oauth.config.PermitAllUrlProperties
 com.vipicu.demo.cloud.oauth.components.SecurityInnerAspect
 com.vipicu.demo.cloud.oauth.feign.FeignClientAutoConfiguration
-com.vipicu.demo.cloud.oauth.service.UserDetailService
+com.vipicu.demo.cloud.oauth.service.PwdUserDetailsService

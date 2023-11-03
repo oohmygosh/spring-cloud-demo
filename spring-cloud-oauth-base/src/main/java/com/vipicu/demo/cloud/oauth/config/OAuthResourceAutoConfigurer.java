@@ -18,6 +18,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
@@ -41,10 +44,14 @@ public class OAuthResourceAutoConfigurer {
     private final SecurityProperties securityProperties;
 
     @Bean
-    public OpaqueTokenIntrospector customOpaqueTokenIntrospector(JwtDecoder jwtDecoder, CacheManager cacheManager){
-        return new TokenOpaqueTokenIntrospection(jwtDecoder, cacheManager);
+    public OpaqueTokenIntrospector customOpaqueTokenIntrospector(JwtDecoder jwtDecoder, UserDetailsService userDetailsService){
+        return new TokenOpaqueTokenIntrospection(jwtDecoder, userDetailsService);
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
     @Bean
     @SneakyThrows

@@ -16,6 +16,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>com.vipicu.demo.cloud</groupId>
             <artifactId>spring-cloud-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>

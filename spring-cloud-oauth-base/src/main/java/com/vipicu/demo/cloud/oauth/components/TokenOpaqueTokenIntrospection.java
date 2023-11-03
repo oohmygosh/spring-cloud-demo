@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.jwt.BadJwtException;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -31,21 +32,17 @@ import java.util.List;
 public class TokenOpaqueTokenIntrospection implements OpaqueTokenIntrospector {
 
     private final JwtDecoder jwtDecoder;
-    private final CacheManager cacheManager;
+    private final UserDetailsService userDetailsService;
     private final JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
 
     @Override
     public OAuth2AuthenticatedPrincipal introspect(String token) {
         try {
-            Cache cache = cacheManager.getCache(CacheConstants.USER_DETAILS);
-            Assert.notNull(cache, "请检查缓存!");
             Jwt jwt = this.jwtDecoder.decode(token);
             AbstractAuthenticationToken convert = jwtAuthenticationConverter.convert(jwt);
-            IUserDetails userDetails = cache.get(convert.getName(), IUserDetails.class);
+            IUserDetails userDetails = (IUserDetails) userDetailsService.loadUserByUsername(convert.getName());
             Assert.notNull(userDetails, "缓存过期");
-            ArrayList<GrantedAuthority> authorities = new ArrayList<>(userDetails.getAuthorities());
-            authorities.addAll(convert.getAuthorities());
-            return new OAuth2IntrospectionAuthenticatedPrincipal(convert.getName(), jwt.getClaims(), authorities);
+            return userDetails;
         } catch (BadJwtException var3) {
             log.debug("Failed to authenticate since the JWT was invalid");
             throw new InvalidBearerTokenException(var3.getMessage(), var3);

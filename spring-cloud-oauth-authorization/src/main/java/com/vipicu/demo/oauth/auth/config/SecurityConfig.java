@@ -8,9 +8,9 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.vipicu.demo.cloud.oauth.config.SecurityProperties;
-import com.vipicu.demo.cloud.oauth.utils.JwtSecretUtils;
 import com.vipicu.demo.cloud.oauth.entity.IUserDetails;
 import com.vipicu.demo.cloud.oauth.entity.IUserDetailsMixin;
+import com.vipicu.demo.cloud.oauth.utils.JwtSecretUtils;
 import com.vipicu.demo.oauth.auth.support.core.CustomAuthorizationGrantType;
 import com.vipicu.demo.oauth.auth.support.handler.CustomAuthenticationFailureHandler;
 import com.vipicu.demo.oauth.auth.support.handler.CustomAuthenticationSuccessHandler;
@@ -29,8 +29,6 @@ import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
@@ -91,11 +89,6 @@ public class SecurityConfig {
                 new OAuth2ClientCredentialsAuthenticationConverter(),
                 new OAuth2AuthorizationCodeAuthenticationConverter(),
                 new OAuth2AuthorizationCodeRequestAuthenticationConverter()));
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean
